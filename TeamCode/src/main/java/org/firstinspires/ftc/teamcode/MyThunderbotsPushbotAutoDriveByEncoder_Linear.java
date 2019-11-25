@@ -65,7 +65,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Thunderbots AutoMode", group="Thunderbots")
 
-public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends LinearOpMode {
+public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode{
+
+
 
     /* Declare OpMode members. */
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
@@ -84,11 +86,10 @@ public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends LinearOpMode 
     public void runOpMode() {
 
         /*
-         * Initialize the drive system variables.
+         * Initialize the drive system variables
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
-
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
         telemetry.update();
@@ -102,6 +103,7 @@ public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends LinearOpMode 
         robot.leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        initSkystoneCamera();
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
                           robot.leftDrive.getCurrentPosition(),
@@ -110,6 +112,7 @@ public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends LinearOpMode 
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        targetsSkyStone.activate();
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
