@@ -102,7 +102,7 @@ public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends ThunsderbotVu
 
         robot.leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        //initialized the camera
         initSkystoneCamera();
         // Send telemetry message to indicate successful Encoder reset
         telemetry.addData("Path0",  "Starting at %7d :%7d",
@@ -113,7 +113,7 @@ public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends ThunsderbotVu
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         targetsSkyStone.activate();
-
+        
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED,  -3,   -3, 2.0);  // S1: Forward 3 Inches with 2 Sec timeout
