@@ -106,7 +106,7 @@ public class MyThuderbotsOpMode_Linear extends ThunsderbotVuforiaSkyStoneNavigat
             double rightBackwardPower;
             double leftArmPower;
             double rightArmPower;
-            final double ELBOWINCREMENT   = 0.3;     // amount to slew servo each CYCLE_MS cycle
+            final double ELBOWINCREMENT   = 0.5;     // amount to slew servo each CYCLE_MS cycle
             final double CLAWINCREMENT    = 3.0 ;
             final double MAX_POS     =  3.0;     // Maximum rotational position
             final double MIN_POS     =  0.0;     // Minimum rotational position
