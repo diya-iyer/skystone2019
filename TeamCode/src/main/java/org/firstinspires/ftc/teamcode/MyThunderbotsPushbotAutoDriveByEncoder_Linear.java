@@ -116,10 +116,25 @@ public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends ThunsderbotVu
         
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -3,   -3, 2.0);  // S1: Forward 3 Inches with 2 Sec timeout
-        //TO DO: Step 2 Move arm to collect skystone
+        encoderDrive(DRIVE_SPEED,  24,   24, 3.0);  // S1: Forward 3 Inches with 2 Sec timeout
+        //ARM DOWN
+        encoderDrive(DRIVE_SPEED, -14, -14, 2.0);
         double turnInches = ThunderbotsUtil.ConvertDegreesToInches(3.5, 90);
         encoderDrive(TURN_SPEED, turnInches, -turnInches, 2.0);  // S3: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED, 46, 46, 5.0);
+        encoderDrive(TURN_SPEED, turnInches, -turnInches, 2.0);
+        //ARM UP
+        double turnInches45 = ThunderbotsUtil.ConvertDegreesToInches(3.5, 45);
+        encoderDrive(TURN_SPEED, turnInches45, -turnInches45, 1.0);
+        encoderDrive(DRIVE_SPEED, 16, 16,2.0);
+        //ARM DOWN
+        double turnInchesn75 = ThunderbotsUtil.ConvertDegreesToInches(3.5, -75);
+        encoderDrive(TURN_SPEED, turnInchesn75, -turnInchesn75, 1.5);
+        encoderDrive(DRIVE_SPEED, 10, 10, 2.0);
+        //ARM UP
+        encoderDrive(DRIVE_SPEED, -4, -4,2.0);
+        //ARM DOWN
+        encoderDrive(DRIVE_SPEED, -18, -18, 3.0);
 
 
         /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
