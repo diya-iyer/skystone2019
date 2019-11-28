@@ -35,6 +35,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+@Autonomous(name="AutonomousPark_Robot1", group="Thunderbots")
+
 public class Automous1_Robot1 extends ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode{
     /* Declare OpMode members. */
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
