@@ -85,10 +85,10 @@ public class Automous1_Robot1 extends ThunsderbotVuforiaSkyStoneNavigationWebcam
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  24,   24, 5.0);  // S1: Forward 3 Inches with 2 Sec timeout
-        double turnInches = ThunderbotsUtil.ConvertDegreesToInches(3.5, 90);
+        encoderDrive(DRIVE_SPEED,  -24,   -24, 5.0);  // S1: Forward 3 Inches with 2 Sec timeout
+        double turnInches = ThunderbotsUtil.ConvertDegreesToInches(3.5, -90);
         encoderDrive(TURN_SPEED, turnInches, -turnInches, 3.0);
-        encoderDrive(DRIVE_SPEED, 36,36,5.0);
+        encoderDrive(DRIVE_SPEED, -36,-36,5.0);
 
         /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
         robot.rightClaw.setPosition(0.0); */
