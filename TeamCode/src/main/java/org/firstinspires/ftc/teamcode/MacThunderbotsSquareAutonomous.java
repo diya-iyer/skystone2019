@@ -1,3 +1,4 @@
+package org.firstinspires.ftc.teamcode;
 /* Copyright (c) 2017 FIRST. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -27,43 +28,15 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * This file illustrates the concept of driving a path based on encoder counts.
- * It uses the common Pushbot hardware class to define the drive on the robot.
- * The code is structured as a LinearOpMode
- *
- * The code REQUIRES that you DO have encoders on the wheels,
- *   otherwise you would use: PushbotAutoDriveByTime;
- *
- *  This code ALSO requires that the drive Motors have been configured such that a positive
- *  power command moves them forwards, and causes the encoders to count UP.
- *
- *   The desired path in this example is:
- *   - Drive forward for 48 inches
- *   - Spin right for 12 Inches
- *   - Drive Backwards for 24 inches
- *   - Stop and close the claw.
- *
- *  The code is written using a method called: encoderDrive(speed, leftInches, rightInches, timeoutS)
- *  that performs the actual movement.
- *  This methods assumes that each movement is relative to the last stopping place.
- *  There are other ways to perform encoder based moves, but this method is probably the simplest.
- *  This code uses the RUN_TO_POSITION mode to enable the Motor controllers to generate the run profile
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- * @Disabled
- */
+@Autonomous(name="Basic: Mecanum Thunderbots CrossBridge Autonomous", group="Thunderbots")
 
-@Autonomous(name="Basic: Mecanum Thunderbots Camera Autonomous", group="Thunderbots")
-
-public class MacThunderbotsPushbotAutonomousDrive extends ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode {
+public class MacThunderbotsSquareAutonomous extends LinearOpMode {
 
     /* Declare OpMode members. */
     MacHardwarePushbot robot = new MacHardwarePushbot();   // Use a Pushbot's hardware
@@ -120,11 +93,11 @@ public class MacThunderbotsPushbotAutonomousDrive extends ThunsderbotVuforiaSkyS
         //String imageDetectedName=this.detectSksytoneImage();
         //telemetry.addData("Image", imageDetectedName);
 
-        //we're going to move until we find the skystone image
-        this.keepMovingUntilSkystone();
-        this.pickupBrick();
-        this.keepMovingUntilFoundation();
-        this.dropBrickOnFoundation();
+
+        this.crossSkybridge();
+        //pull bases
+        robot.rightArm.setPower(1.0);
+        encoderDrive(DRIVE_SPEED, -24, -24, 0.5);
 
 
 
@@ -215,35 +188,32 @@ public class MacThunderbotsPushbotAutonomousDrive extends ThunsderbotVuforiaSkyS
     }
 
 
-    public void keepMovingUntilSkystone() {
-        String imagedetected = null;
-        imagedetected = this.detectSksytoneImage();
-        while (!imagedetected.equals("Stone Target")) {
-            encoderDrive(DRIVE_SPEED, -3, -3, 2.0);  // S1: Forward 3 Inches with 2 Sec timeout
+    public void crossSkybridge() {
 
-        }
-    }
+        double powerMultiplier=0.5;
 
-    public void pickupBrick() {
-
-    }
+        encoderDrive(DRIVE_SPEED, 24, 24, 0.5);
 
 
 
-    public void keepMovingUntilFoundation(){
-        String imagedetected = null;
-        imagedetected = this.detectSksytoneImage();
-        while (!imagedetected.equals("Rear Perimeter")) {
-            encoderDrive(DRIVE_SPEED, -3, -3, 2.0);  // S1: Forward
-        }
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        encoderDrive(DRIVE_SPEED,  96,96,  1.5);
+
+        //robot.leftDrive1.setPower(-powerMultiplier);
+        //robot.rightDrive1.setPower(powerMultiplier);
+        //robot.leftDrive2.setPower(powerMultiplier);
+        //robot.rightDrive2.setPower(-powerMultiplier);
 
     }
 
-    public void dropBrickOnFoundation() {
 
-
-    }
 
 
 }
+
+
 
