@@ -133,7 +133,7 @@ public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends ThunsderbotVu
         encoderDrive(DRIVE_SPEED, 10, 10, 2.0);
         //ARM UP
         encoderDrive(DRIVE_SPEED, -4, -4,2.0);
-        //ARM DOWN
+        //ARM DOW
         encoderDrive(DRIVE_SPEED, -18, -18, 3.0);
 
 
