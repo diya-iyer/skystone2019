@@ -121,22 +121,26 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             driveStop = true;
 
         //Mecanum wheels work well with full power
-        if (turnRight > 0) {
+        if (turnRight < 0) {
             telemetry.addData("Status", "Moving right");
             telemetry.update();
 
             robot.leftDrive1.setPower(powerMultiplier);
-            robot.rightDrive2.setPower(powerMultiplier);
+            robot.rightDrive1.setPower(-powerMultiplier);
+            robot.leftDrive2.setPower(powerMultiplier);
+            robot.rightDrive2.setPower(-powerMultiplier);
 
-        } else if (turnLeft < 0) {
+        } else if (turnLeft > 0) {
 
             telemetry.addData("Status", "Moving left");
             telemetry.update();
 
+            robot.leftDrive1.setPower(-powerMultiplier);
             robot.rightDrive1.setPower(powerMultiplier);
-            robot.leftDrive2.setPower(powerMultiplier);
+            robot.leftDrive2.setPower(-powerMultiplier);
+            robot.rightDrive2.setPower(powerMultiplier);
 
-        } else if (driveForward > 0) {
+        } else if (driveForward < 0) {
 
             telemetry.addData("Status", "Moving forward");
             telemetry.update();
@@ -145,7 +149,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             robot.rightDrive1.setPower(powerMultiplier);
             robot.leftDrive2.setPower(powerMultiplier);
             robot.rightDrive2.setPower(powerMultiplier);
-        } else if (driveBackward < 0) {
+        } else if (driveBackward > 0) {
 
             telemetry.addData("Status", "Moving backward");
             telemetry.update();
