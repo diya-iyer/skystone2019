@@ -89,10 +89,11 @@ public class MacHardwarePushbot
         leftDrive2  = hwMap.get(DcMotor.class, "left_drive2");
         rightDrive2 = hwMap.get(DcMotor.class, "right_drive2");
 
-        /* No Arms included yet in Macenum robot
-        leftArm    = hwMap.get(DcMotor.class, "left_arm");
-        rightArm    =hwMap.get(DcMotor.class, "right_arm");
-        */
+        //No Arms included yet in Macenum robot
+        rightArm = hwMap.get(DcMotor.class, "right_arm");
+        rightClaw = hwMap.get(Servo.class, "right_claw");
+
+
 
         leftDrive1.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive1.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
