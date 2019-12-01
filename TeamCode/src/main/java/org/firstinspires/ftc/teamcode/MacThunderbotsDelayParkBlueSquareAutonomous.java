@@ -36,16 +36,17 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Mecanum Thunderbots DelayParkBlueSquare Autonomous", group="Thunderbots")
 
-public class MacThunderbotsSquareRedAutonomous extends MacThunderbotsSquareAutonomous {
+public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsSquareAutonomous {
 
     @Override
     public void runOpMode() {
-        getDelay(20 seconds )
+
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+        sleep(20000);
         //initSkystoneCamera();
 
         // Send telemetry message to signify robot waiting;

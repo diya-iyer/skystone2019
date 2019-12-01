@@ -34,9 +34,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Basic: Mecanum Thunderbots SquareRed Autonomous", group="Thunderbots")
+@Autonomous(name="Basic: Mecanum Thunderbots TriangleRed Autonomous", group="Thunderbots")
 
-public class MacThunderbotsSquareRedAutonomous extends MacThunderbotsSquareAutonomous {
+public class MacThunderbotsTriangleRedAutonomous extends MacThunderbotsSquareAutonomous {
 
     @Override
     public void runOpMode() {

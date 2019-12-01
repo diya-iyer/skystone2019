@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Mecanum Thunderbots SquareRed Autonomous", group="Thunderbots")
 
-public class MacThunderbotsSquareRedAutonomous extends MacThunderbotsSquareAutonomous {
+public class MacThunderbotsDelayParkBlueTriangleAutonomous extends MacThunderbotsSquareAutonomous {
 
     @Override
     public void runOpMode() {
