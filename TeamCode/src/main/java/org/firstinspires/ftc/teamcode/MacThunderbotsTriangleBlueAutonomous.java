@@ -36,7 +36,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Mecanum Thunderbots CrossBridge Autonomous", group="Thunderbots")
 
-public class MacThunderbotsSquareAutonomous extends LinearOpMode {
+public class MacThunderbotsTriangleBlueAutonomous extends LinearOpMode {
 
     /* Declare OpMode members. */
     MacHardwarePushbot robot = new MacHardwarePushbot();   // Use a Pushbot's hardware

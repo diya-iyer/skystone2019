@@ -57,20 +57,22 @@ import com.qualcomm.robotcore.util.Range;
 public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 
     // Declare OpMode members.
-    MacHardwarePushbot robot   = new MacHardwarePushbot();   // Use a Pushbot's hardware
+    MacHardwarePushbot robot = new MacHardwarePushbot();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
     double leftForwardPower;
     double rightForwardPower;
     double leftBackwardPower;
     double rightBackwardPower;
-    final double CLAWINCREMENT    = 0.2;
-    double MAX_POS     =  3.0;     // Maximum rotational position
-    double MIN_POS     =  0.0;     // Minimum rotational position
+    final double CLAWINCREMENT = 0.2;
+    private Servo basepull = null;
+    final double BASEPULL = 0.5;
+    double basepullposition = 0;
+    double MAX_POS = 3.0;     // Maximum rotational position
+    double MIN_POS = 0.0;     // Minimum rotational position
 
 
-
-   // private Servo grabber = null;
+    // private Servo grabber = null;
     @Override
     public void runOpMode() {
 
@@ -93,31 +95,30 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
         while (opModeIsActive()) {
             // Setup a variable for each drive wheel to save power level for telemetry
 
-        driveMacChasis();
-        pickUpBrick();
-        telemetry.update();
+            driveMacChasis();
+            pickUpBrick();
+            telemetry.update();
 
         }
 
 
-
     }
-    public void driveMacChasis(){
+
+    public void driveMacChasis() {
         // POV Mode uses left stick to go forward, backward, and turn
         // - This uses basic math to combine motions and is easier to drive straight.
 
-        double driveForward  =  gamepad1.left_stick_y;
-        double driveBackward  =  gamepad1.left_stick_y;
+        double driveForward = gamepad1.left_stick_y;
+        double driveBackward = gamepad1.left_stick_y;
         double turnRight = gamepad1.right_stick_x;
         double turnLeft = gamepad1.right_stick_x;
         double strafeRight = gamepad1.left_stick_x;
         double strafeLeft = gamepad1.left_stick_x;
+        double powerMultiplier = 0.5;
 
-        double powerMultiplier =0.5;
+        boolean driveStop = false;
 
-        boolean driveStop=false;
-
-        if ((gamepad1.left_stick_y ==0 ) && (gamepad1.right_stick_y==0) && (gamepad1.left_stick_x==0) && (gamepad1.right_stick_x==0))
+        if ((gamepad1.left_stick_y == 0) && (gamepad1.right_stick_y == 0) && (gamepad1.left_stick_x == 0) && (gamepad1.right_stick_x == 0))
             driveStop = true;
 
         //Mecanum wheels work well with full power
@@ -158,8 +159,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             robot.rightDrive1.setPower(-powerMultiplier);
             robot.leftDrive2.setPower(-powerMultiplier);
             robot.rightDrive2.setPower(-powerMultiplier);
-        }
-        else if (driveStop){
+        } else if (driveStop) {
             telemetry.addData("Status", "Stopping");
             telemetry.update();
 
@@ -167,79 +167,97 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             robot.rightDrive1.setPower(0);
             robot.leftDrive2.setPower(0);
             robot.rightDrive2.setPower(0);
+        } else if (strafeRight > 0) {
+            telemetry.addData("Status", "Moving Right");
+            telemetry.update();
+
+            robot.leftDrive1.setPower(powerMultiplier);
+            robot.rightDrive1.setPower(-powerMultiplier);
+            robot.leftDrive2.setPower(-powerMultiplier);
+            robot.rightDrive2.setPower(powerMultiplier);
+
+        } else if (strafeLeft < 0) {
+            telemetry.addData("Status", "Moving Left");
+            telemetry.update();
+
+            robot.leftDrive1.setPower(-powerMultiplier);
+            robot.rightDrive1.setPower(powerMultiplier);
+            robot.leftDrive2.setPower(powerMultiplier);
+            robot.rightDrive2.setPower(-powerMultiplier);
         }
-            else if (strafeRight > 0) {
-                    telemetry.addData("Status", "Moving Right");
-                    telemetry.update();
 
-                    robot.leftDrive1.setPower(powerMultiplier);
-                    robot.rightDrive1.setPower(-powerMultiplier);
-                    robot.leftDrive2.setPower(-powerMultiplier);
-                    robot.rightDrive2.setPower(powerMultiplier);
-
-            }
-            else if (strafeLeft < 0) {
-                telemetry.addData("Status", "Moving Left");
-                telemetry.update();
-
-                robot.leftDrive1.setPower(-powerMultiplier);
-                robot.rightDrive1.setPower(powerMultiplier);
-                robot.leftDrive2.setPower(powerMultiplier);
-                robot.rightDrive2.setPower(-powerMultiplier);
-            }
-
-        leftForwardPower= this.robot.leftDrive1.getPower();
-        rightForwardPower= this.robot.rightDrive1.getPower();
-        leftBackwardPower= this.robot.leftDrive1.getPower();
-        rightBackwardPower= this.robot.rightDrive1.getPower();
+        leftForwardPower = this.robot.leftDrive1.getPower();
+        rightForwardPower = this.robot.rightDrive1.getPower();
+        leftBackwardPower = this.robot.leftDrive1.getPower();
+        rightBackwardPower = this.robot.rightDrive1.getPower();
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Inputs received","Drive Forward: "+ driveForward + " Drive Backward: "+driveBackward+" Drive Right: "+ turnRight + " Drive Left: "+turnLeft);
+        telemetry.addData("Inputs received", "Drive Forward: " + driveForward + " Drive Backward: " + driveBackward + " Drive Right: " + turnRight + " Drive Left: " + turnLeft);
         telemetry.addData("Motors Forward", "left (%.2f), right (%.2f)", leftForwardPower, rightForwardPower);
         telemetry.addData("Motors Backward", "left (%.2f), right (%.2f)", leftBackwardPower, rightBackwardPower);
 
 
     }
-    public void pickUpBrick(){
-        boolean drivePickDown = gamepad1.dpad_down ;
-        boolean drivePickUp = gamepad1.dpad_up ;
-        boolean clawopen= gamepad1.dpad_right ;
-        boolean clawclose = gamepad1.dpad_left ;
+
+    public void pickUpBrick() {
+        boolean drivePickDown = gamepad1.dpad_down;
+        boolean drivePickUp = gamepad1.dpad_up;
+        boolean clawopen = gamepad1.dpad_right;
+        boolean clawclose = gamepad1.dpad_left;
         double clawposition = robot.rightClaw.getPosition();
-        MAX_POS= this.robot.rightClaw.MAX_POSITION;
-        MIN_POS=this.robot.rightClaw.MIN_POSITION;
+        boolean upbasepull = gamepad1.y;
+        boolean downbasepull = gamepad1.a;
+        MAX_POS = this.robot.rightClaw.MAX_POSITION;
+        MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
-        boolean driveStop=false;
-        double powerMultiplier =0.3;
+        boolean driveStop = false;
+        double powerMultiplier = 0.3;
 
-        if (!drivePickDown   && !drivePickUp ) {
+        if (!drivePickDown && !drivePickUp) {
             driveStop = true;
             robot.rightArm.setPower(0);
         }
 
         if (drivePickUp) {
             robot.rightArm.setPower(-powerMultiplier);
-        }
-        else if (drivePickDown) {
+        } else if (drivePickDown) {
             robot.rightArm.setPower(powerMultiplier);
 
-        }
-        else if (clawopen){
-            telemetry.addData("Claw open",clawposition);
-            if (clawposition <= MAX_POS){
-                clawposition += CLAWINCREMENT ;
+        } else if (clawopen) {
+            telemetry.addData("Claw open", clawposition);
+            if (clawposition <= MAX_POS) {
+                clawposition += CLAWINCREMENT;
             }
             robot.rightClaw.setPosition(clawposition);
-        }
-        else if (clawclose){
-            telemetry.addData("Claw close",clawposition);
+        } else if (clawclose) {
+            telemetry.addData("Claw close", clawposition);
             if (clawposition >= MIN_POS) {
-                clawposition -= CLAWINCREMENT ;
+                clawposition -= CLAWINCREMENT;
             }
             robot.rightClaw.setPosition(clawposition);
 
         }
-        telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
+        if (upbasepull) {
 
+            basepullposition -= BASEPULL;
+            if (basepullposition <= MIN_POS) {
+                basepullposition = MAX_POS;
+            }
+            basepull.setPosition(basepullposition);
+
+            if (downbasepull) {
+
+                basepullposition -= BASEPULL;
+                if (basepullposition <= MIN_POS) {
+                    basepullposition = MAX_POS;
+                }
+                basepull.setPosition(basepullposition);
+
+
+            }
+
+            telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
+
+        }
     }
 }
