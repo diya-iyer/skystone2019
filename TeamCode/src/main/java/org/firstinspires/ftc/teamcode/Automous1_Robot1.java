@@ -85,7 +85,8 @@ public class Automous1_Robot1 extends ThunsderbotVuforiaSkyStoneNavigationWebcam
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -24,   -24, 0.5);  // S1: Forward 3 Inches with 2 Sec timeout
+        //encoderDrive(DRIVE_SPEED,  -24,   -24, 10);  // S1: Forward 3 Inches with 2 Sec timeout
+        encoderDrive(DRIVE_SPEED,  -24,   -24, 10);  // S1: Forward 3 Inches with 2 Sec timeout
         double turnInches = ThunderbotsUtil.ConvertDegreesToInches(3.5, -90);
         encoderDrive(TURN_SPEED, -turnInches, turnInches, 1.0);
         encoderDrive(DRIVE_SPEED, -36,-36,1.5);
@@ -116,8 +117,10 @@ public class Automous1_Robot1 extends ThunsderbotVuforiaSkyStoneNavigationWebcam
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+           /* newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH); */
+           newLeftTarget = robot.leftDrive.getCurrentPosition() + (int) (ThunderbotsUtil.ConvertDegreesToInches(3.5, 360) * leftInches);
+            newRightTarget = robot.rightDrive.getCurrentPosition() + (int) (ThunderbotsUtil.ConvertDegreesToInches(3.5, 360) * rightInches);
             robot.leftDrive.setTargetPosition(newLeftTarget);
             robot.rightDrive.setTargetPosition(newRightTarget);
 
@@ -137,7 +140,7 @@ public class Automous1_Robot1 extends ThunsderbotVuforiaSkyStoneNavigationWebcam
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
+//                    (runtime.seconds() < timeoutS) &&
                     (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
 
                 // Display it for the driver.
