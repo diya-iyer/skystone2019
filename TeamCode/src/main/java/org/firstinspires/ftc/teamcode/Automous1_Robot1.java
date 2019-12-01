@@ -31,7 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -87,8 +87,8 @@ public class Automous1_Robot1 extends ThunsderbotVuforiaSkyStoneNavigationWebcam
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED,  -24,   -24, 0.5);  // S1: Forward 3 Inches with 2 Sec timeout
         double turnInches = ThunderbotsUtil.ConvertDegreesToInches(3.5, -90);
-        encoderDrive(TURN_SPEED, -turnInches, turnInches, 2.0);
-        encoderDrive(DRIVE_SPEED, -36,-36,0.5);
+        encoderDrive(TURN_SPEED, -turnInches, turnInches, 1.0);
+        encoderDrive(DRIVE_SPEED, -36,-36,1.5);
 
         /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
         robot.rightClaw.setPosition(0.0); */
