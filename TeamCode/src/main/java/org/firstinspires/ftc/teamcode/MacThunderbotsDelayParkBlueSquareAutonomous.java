@@ -46,7 +46,6 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
-        sleep(20000);
         //initSkystoneCamera();
 
         // Send telemetry message to signify robot waiting;
@@ -71,7 +70,8 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        sleep(20000);
+        parkunderbridge();
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -3,   -3, 2.0);  // S1: Forward 3 Inches with 2 Sec timeout
@@ -81,27 +81,11 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
         //String imageDetectedName=this.detectSksytoneImage();
         //telemetry.addData("Image", imageDetectedName);
 
-
-        this.crossSkybridge();
-        //pull bases
-        robot.rightArm.setPower(1.0);
-        encoderDrive(DRIVE_SPEED, -24, -24, 0.5);
-
-
-
-        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
-        robot.rightClaw.setPosition(0.0); */
-        //sleep(1000);     // pause for servos to move
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
     }
 
+    public void parkunderbridge() {
 
-
-    public void crossSkybridge() {
-
-        double powerMultiplier=0.5;
+        double powerMultiplier = 0.5;
 
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -116,7 +100,7 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        encoderDrive(DRIVE_SPEED,  48, 48,  1.5);
+        encoderDrive(DRIVE_SPEED, 64, 64, 1.5);
 
         //sideways must be quadrupled due to strafing needing more rotations
         //robot.leftDrive1.setPower(-powerMultiplier);
@@ -125,4 +109,4 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
         //robot.rightDrive2.setPower(-powerMultiplier);
 
     }
- }
+}
