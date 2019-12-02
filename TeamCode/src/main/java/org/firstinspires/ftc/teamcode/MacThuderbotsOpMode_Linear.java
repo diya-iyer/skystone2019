@@ -201,10 +201,10 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 
     }
     public void pickUpBrick(){
-        boolean drivePickDown = gamepad1.dpad_down ;
-        boolean drivePickUp = gamepad1.dpad_up ;
-        boolean clawopen= gamepad1.dpad_right ;
-        boolean clawclose = gamepad1.dpad_left ;
+        boolean drivePickDown = gamepad2.dpad_up ;
+        boolean drivePickUp = gamepad2.dpad_down ;
+        boolean clawopen= gamepad2.dpad_right ;
+        boolean clawclose = gamepad2.dpad_left ;
         double clawposition = robot.rightClaw.getPosition();
         MAX_POS= this.robot.rightClaw.MAX_POSITION;
         MIN_POS=this.robot.rightClaw.MIN_POSITION;

@@ -70,7 +70,8 @@ public class MacThunderbotsDelayParkBlueTriangleAutonomous extends MacThunderbot
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        sleep(20000);
+        parkunderbridge();
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -3,   -3, 2.0);  // S1: Forward 3 Inches with 2 Sec timeout
@@ -80,39 +81,26 @@ public class MacThunderbotsDelayParkBlueTriangleAutonomous extends MacThunderbot
         //String imageDetectedName=this.detectSksytoneImage();
         //telemetry.addData("Image", imageDetectedName);
 
-
-        this.crossSkybridge();
-        //pull bases
-        robot.rightArm.setPower(1.0);
-        encoderDrive(DRIVE_SPEED, -24, -24, 0.5);
-
-
-
-        /*robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
-        robot.rightClaw.setPosition(0.0); */
-        //sleep(1000);     // pause for servos to move
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
     }
 
+    public void parkunderbridge() {
 
+        double powerMultiplier = 0.5;
 
-    public void crossSkybridge() {
-
-        double powerMultiplier=0.5;
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
         encoderDrive(DRIVE_SPEED, 24, 24, 0.5);
 
 
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        encoderDrive(DRIVE_SPEED,  96,96,  1.5);
-        encoderDrive(DRIVE_SPEED,  96,96,  1.5);
+        encoderDrive(DRIVE_SPEED, 64, 64, 1.5);
 
         //sideways must be quadrupled due to strafing needing more rotations
         //robot.leftDrive1.setPower(-powerMultiplier);
@@ -121,69 +109,4 @@ public class MacThunderbotsDelayParkBlueTriangleAutonomous extends MacThunderbot
         //robot.rightDrive2.setPower(-powerMultiplier);
 
     }
-    public void grabFoundationWithAutonomous() {
-        /*boolean drivePickDown = gamepad1.dpad_down ;
-        boolean drivePickUp = gamepad1.dpad_up ;
-        boolean clawopen= gamepad1.dpad_right ;
-        boolean clawclose = gamepad1.dpad_left ;*/
-
-        double clawposition = robot.rightClaw.getPosition();
-        double MAX_POS = this.robot.rightClaw.MAX_POSITION;
-        double MIN_POS = this.robot.rightClaw.MIN_POSITION;
-        double CLAW_INCREMENT = 0.6;
-        //claw open & then claw close
-
-        telemetry.addData("Claw open", clawposition);
-        if (clawposition <= MAX_POS) {
-            clawposition += CLAW_INCREMENT;
-        }
-        robot.rightClaw.setPosition(clawposition);
-
-        telemetry.addData("Claw close", clawposition);
-        if (clawposition >= MIN_POS) {
-            clawposition -= CLAW_INCREMENT;
-        }
-        robot.rightClaw.setPosition(clawposition);
-
-    }
-
-    public void turnandlatchontofoundatiion () {
-
-            double powerMultiplier = 0.5;
-
-
-
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.leftDrive1.setPower(powerMultiplier);
-            robot.rightDrive1.setPower(0);
-            robot.leftDrive2.setPower(0);
-            robot.rightDrive2.setPower(0);
-
-
-
-
-
-
-    }
-    public void grabFoundationandstrafeleft() {
-
-            double powerMultiplier = 0.5;
-
-            //encoderDrive(DRIVE_SPEED, 24, 24, 0.5);
-
-
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-            encoderDrive(DRIVE_SPEED, 48, 48, 1.5);
-
-
-    }
-
-
 }
