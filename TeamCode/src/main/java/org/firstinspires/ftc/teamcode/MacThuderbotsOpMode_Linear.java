@@ -113,7 +113,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
         double strafeRight = gamepad1.left_stick_x;
         double strafeLeft = gamepad1.left_stick_x;
 
-        double powerMultiplier =0.5;
+        double powerMultiplier =0.7;
 
         boolean driveStop=false;
 
@@ -201,8 +201,8 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 
     }
     public void pickUpBrick(){
-        boolean drivePickDown = gamepad2.dpad_up ;
-        boolean drivePickUp = gamepad2.dpad_down ;
+        boolean drivePickDown = gamepad2.dpad_down ;
+        boolean drivePickUp = gamepad2.dpad_up ;
         boolean clawopen= gamepad2.dpad_right ;
         boolean clawclose = gamepad2.dpad_left ;
         double clawposition = robot.rightClaw.getPosition();
