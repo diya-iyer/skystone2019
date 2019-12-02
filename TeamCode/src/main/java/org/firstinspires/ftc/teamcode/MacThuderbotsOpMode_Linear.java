@@ -72,6 +72,10 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
     double MIN_POS = 0.0;     // Minimum rotational position
 
 
+    double powerMultiplier =0.5;
+    double MAX_POWER=1.0;
+    double POWER_INCREMENT=0.2;
+
     // private Servo grabber = null;
     @Override
     public void runOpMode() {
@@ -200,10 +204,10 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
     }
 
     public void pickUpBrick() {
-        boolean drivePickDown = gamepad1.dpad_down;
-        boolean drivePickUp = gamepad1.dpad_up;
-        boolean clawopen = gamepad1.dpad_right;
-        boolean clawclose = gamepad1.dpad_left;
+        boolean drivePickDown = gamepad2.dpad_down;
+        boolean drivePickUp = gamepad2.dpad_up;
+        boolean clawopen = gamepad2.dpad_right;
+        boolean clawclose = gamepad2.dpad_left;
         double clawposition = robot.rightClaw.getPosition();
         boolean upbasepull = gamepad1.y;
         boolean downbasepull = gamepad1.a;
@@ -259,5 +263,23 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
 
         }
+    }
+    public void powerChange(){
+
+            boolean powerDown = gamepad1.dpad_down ;
+            boolean powerUp = gamepad1.dpad_up ;
+
+
+            if (powerMultiplier<MAX_POWER && powerUp) {
+                powerMultiplier=powerMultiplier+POWER_INCREMENT;
+            }
+            else if (powerMultiplier>0 && powerDown) {
+                powerMultiplier=powerMultiplier+POWER_INCREMENT;
+            }
+
+
+            telemetry.addData("Power Multiplier", "left (%.2f)", powerMultiplier);
+
+
     }
 }
