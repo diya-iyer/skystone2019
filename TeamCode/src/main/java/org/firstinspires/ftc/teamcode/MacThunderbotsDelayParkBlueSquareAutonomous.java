@@ -41,13 +41,17 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
     @Override
     public void runOpMode() {
 
+
+         /* Initialize the drive system variables.
+=======
         /*
          * Initialize the drive system variables.
+>>>>>>> 6235cb25df2c16e128749ce502524b9a1b67d0a3
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
         //initSkystoneCamera();
-
+        sleep(20000);
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Init done");    //
         telemetry.update();
