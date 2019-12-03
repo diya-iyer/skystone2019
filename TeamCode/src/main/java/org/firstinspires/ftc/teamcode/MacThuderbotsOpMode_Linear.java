@@ -210,8 +210,8 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
         boolean clawopen = gamepad2.dpad_right;
         boolean clawclose = gamepad2.dpad_left;
         double clawposition = robot.rightClaw.getPosition();
-        boolean upbasepull = gamepad1.y;
-        boolean downbasepull = gamepad1.a;
+        boolean upbasepull = gamepad2.y;
+        boolean downbasepull = gamepad2.a;
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
@@ -257,7 +257,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
                     basepullposition = MIN_POS;
                 }
                 robot.basepull.setPosition(basepullposition);
-                
+
         }
         telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
     }
