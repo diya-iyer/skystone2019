@@ -65,14 +65,14 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
     double leftBackwardPower;
     double rightBackwardPower;
     final double CLAWINCREMENT = 0.2;
-    private Servo basepull = null;
+
     final double BASEPULL = 0.5;
     double basepullposition = 0;
     double MAX_POS = 3.0;     // Maximum rotational position
     double MIN_POS = 0.0;     // Minimum rotational position
 
 
-    double powerMultiplier =0.5;
+    double powerMultiplier =1.0;
     double MAX_POWER=1.0;
     double POWER_INCREMENT=0.2;
 
@@ -204,27 +204,31 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
     }
 
     public void pickUpBrick() {
-        boolean drivePickDown = gamepad2.dpad_down;
-        boolean drivePickUp = gamepad2.dpad_up;
+        boolean armPickDown = gamepad2.dpad_down;
+        boolean armPickUp = gamepad2.dpad_up;
         boolean clawopen = gamepad2.dpad_right;
         boolean clawclose = gamepad2.dpad_left;
         double clawposition = robot.rightClaw.getPosition();
-        boolean upbasepull = gamepad1.y;
-        boolean downbasepull = gamepad1.a;
+        boolean upbasepull = gamepad2.y;
+        boolean downbasepull = gamepad2.a;
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
         boolean driveStop = false;
         double powerMultiplier = 0.3;
 
-        if (!drivePickDown && !drivePickUp) {
+        if (!armPickDown && !armPickUp) {
             driveStop = true;
             robot.rightArm.setPower(0);
         }
+        if (!clawclose && !clawclose) {
+            //figure out how to turn off servo
 
-        if (drivePickUp) {
+        }
+
+        if (armPickUp) {
             robot.rightArm.setPower(-powerMultiplier);
-        } else if (drivePickDown) {
+        } else if (armPickDown) {
             robot.rightArm.setPower(powerMultiplier);
 
         } else if (clawopen) {
@@ -247,22 +251,19 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             if (basepullposition <= MIN_POS) {
                 basepullposition = MAX_POS;
             }
-            basepull.setPosition(basepullposition);
-
-            if (downbasepull) {
+            robot.basepull.setPosition(basepullposition);
+        }
+        else if (downbasepull) {
 
                 basepullposition -= BASEPULL;
                 if (basepullposition <= MIN_POS) {
                     basepullposition = MAX_POS;
                 }
-                basepull.setPosition(basepullposition);
+                robot.basepull.setPosition(basepullposition);
 
-
-            }
-
-            telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
 
         }
+        telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
     }
     public void powerChange(){
 
