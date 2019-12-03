@@ -72,7 +72,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
     double MIN_POS = 0.0;     // Minimum rotational position
 
 
-    double powerMultiplier =1.0;
+    double powerMultiplier =0.5;
     double MAX_POWER=1.0;
     double POWER_INCREMENT=0.2;
 
@@ -101,6 +101,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 
             driveMacChasis();
             pickUpBrick();
+            powerChange();
             telemetry.update();
 
         }
@@ -204,31 +205,27 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
     }
 
     public void pickUpBrick() {
-        boolean armPickDown = gamepad2.dpad_down;
-        boolean armPickUp = gamepad2.dpad_up;
+        boolean drivePickDown = gamepad2.dpad_down;
+        boolean drivePickUp = gamepad2.dpad_up;
         boolean clawopen = gamepad2.dpad_right;
         boolean clawclose = gamepad2.dpad_left;
         double clawposition = robot.rightClaw.getPosition();
-        boolean upbasepull = gamepad2.y;
-        boolean downbasepull = gamepad2.a;
+        boolean upbasepull = gamepad1.y;
+        boolean downbasepull = gamepad1.a;
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
         boolean driveStop = false;
         double powerMultiplier = 0.3;
 
-        if (!armPickDown && !armPickUp) {
+        if (!drivePickDown && !drivePickUp) {
             driveStop = true;
             robot.rightArm.setPower(0);
         }
-        if (!clawclose && !clawclose) {
-            //figure out how to turn off servo
 
-        }
-
-        if (armPickUp) {
+        if (drivePickUp) {
             robot.rightArm.setPower(-powerMultiplier);
-        } else if (armPickDown) {
+        } else if (drivePickDown) {
             robot.rightArm.setPower(powerMultiplier);
 
         } else if (clawopen) {
@@ -245,10 +242,10 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             robot.rightClaw.setPosition(clawposition);
 
         }
-        if (upbasepull) {
+        else if (upbasepull) {
 
-            basepullposition -= BASEPULL;
-            if (basepullposition <= MIN_POS) {
+            basepullposition += BASEPULL;
+            if (basepullposition >= MAX_POS) {
                 basepullposition = MAX_POS;
             }
             robot.basepull.setPosition(basepullposition);
@@ -257,11 +254,10 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 
                 basepullposition -= BASEPULL;
                 if (basepullposition <= MIN_POS) {
-                    basepullposition = MAX_POS;
+                    basepullposition = MIN_POS;
                 }
                 robot.basepull.setPosition(basepullposition);
-
-
+                
         }
         telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
     }
@@ -275,7 +271,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
                 powerMultiplier=powerMultiplier+POWER_INCREMENT;
             }
             else if (powerMultiplier>0 && powerDown) {
-                powerMultiplier=powerMultiplier+POWER_INCREMENT;
+                powerMultiplier=powerMultiplier-POWER_INCREMENT;
             }
 
 

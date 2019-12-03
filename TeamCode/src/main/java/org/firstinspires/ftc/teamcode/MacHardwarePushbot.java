@@ -64,6 +64,7 @@ public class MacHardwarePushbot
     public DcMotor  rightArm    = null;
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
+
     public Servo basepull = null;
 
     public static final double MID_SERVO       =  0.5 ;
@@ -93,8 +94,6 @@ public class MacHardwarePushbot
         //No Arms included yet in Macenum robot
         rightArm = hwMap.get(DcMotor.class, "right_arm");
         rightClaw = hwMap.get(Servo.class, "right_claw");
-
-        basepull = hwMap.get(Servo.class, "base_pull");
 
 
 
