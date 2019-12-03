@@ -65,7 +65,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
     double leftBackwardPower;
     double rightBackwardPower;
     final double CLAWINCREMENT = 0.2;
-    private Servo basepull = null;
+
     final double BASEPULL = 0.5;
     double basepullposition = 0;
     double MAX_POS = 3.0;     // Maximum rotational position
@@ -101,6 +101,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 
             driveMacChasis();
             pickUpBrick();
+            powerChange();
             telemetry.update();
 
         }
@@ -241,28 +242,24 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             robot.rightClaw.setPosition(clawposition);
 
         }
-        if (upbasepull) {
+        else if (upbasepull) {
 
-            basepullposition -= BASEPULL;
-            if (basepullposition <= MIN_POS) {
+            basepullposition += BASEPULL;
+            if (basepullposition >= MAX_POS) {
                 basepullposition = MAX_POS;
             }
-            basepull.setPosition(basepullposition);
-
-            if (downbasepull) {
+            robot.basepull.setPosition(basepullposition);
+        }
+        else if (downbasepull) {
 
                 basepullposition -= BASEPULL;
                 if (basepullposition <= MIN_POS) {
-                    basepullposition = MAX_POS;
+                    basepullposition = MIN_POS;
                 }
-                basepull.setPosition(basepullposition);
-
-
-            }
-
-            telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
-
+                robot.basepull.setPosition(basepullposition);
+                
         }
+        telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
     }
     public void powerChange(){
 
@@ -274,7 +271,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
                 powerMultiplier=powerMultiplier+POWER_INCREMENT;
             }
             else if (powerMultiplier>0 && powerDown) {
-                powerMultiplier=powerMultiplier+POWER_INCREMENT;
+                powerMultiplier=powerMultiplier-POWER_INCREMENT;
             }
 
 
