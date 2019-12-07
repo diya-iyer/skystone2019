@@ -260,6 +260,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 
         }
         telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
+        telemetry.addData("Base Pull", "left (%.2f)", robot.basepull.getPosition());
     }
     public void powerChange(){
 
