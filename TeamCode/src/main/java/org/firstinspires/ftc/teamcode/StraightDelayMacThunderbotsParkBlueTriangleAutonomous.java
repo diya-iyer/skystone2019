@@ -29,29 +29,23 @@ package org.firstinspires.ftc.teamcode;
  */
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Basic: Mecanum Thunderbots DelayParkBlueSquareF Autonomous", group="Thunderbots")
+@Autonomous(name="Basic: Mecanum Thunderbots StraightDelayParkBlueTriangle Autonomous", group="Thunderbots")
 
-public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsSquareAutonomous {
+public class StraightDelayMacThunderbotsParkBlueTriangleAutonomous extends MacThunderbotsSquareAutonomous {
 
     @Override
     public void runOpMode() {
 
-
-         /* Initialize the drive system variables.
-=======
         /*
          * Initialize the drive system variables.
->>>>>>> 6235cb25df2c16e128749ce502524b9a1b67d0a3
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
         //initSkystoneCamera();
-        sleep(20000);
+
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Init done");    //
         telemetry.update();
@@ -74,7 +68,7 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        //sleep(20000);
+        sleep(20000);
         parkunderbridge();
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
@@ -99,10 +93,10 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
         encoderDrive(DRIVE_SPEED, 24, 24, 0.5);
 
 
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
         encoderDrive(DRIVE_SPEED, 64, 64, 1.5);
 

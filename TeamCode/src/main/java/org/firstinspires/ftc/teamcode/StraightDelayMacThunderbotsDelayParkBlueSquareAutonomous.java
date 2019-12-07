@@ -29,14 +29,12 @@ package org.firstinspires.ftc.teamcode;
  */
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Basic: Mecanum Thunderbots DelayParkBlueSquareF Autonomous", group="Thunderbots")
+@Autonomous(name="Basic: Mecanum Thunderbots StraightDelayParkBlueSquareF Autonomous", group="Thunderbots")
 
-public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsSquareAutonomous {
+public class StraightDelayMacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsSquareAutonomous {
 
     @Override
     public void runOpMode() {
@@ -90,15 +88,6 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
     public void parkunderbridge() {
 
         double powerMultiplier = 0.5;
-
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        encoderDrive(DRIVE_SPEED, 24, 24, 0.5);
-
-
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
