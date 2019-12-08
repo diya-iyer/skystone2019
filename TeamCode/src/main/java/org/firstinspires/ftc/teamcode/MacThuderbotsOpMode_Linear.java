@@ -119,7 +119,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
         double turnLeft = gamepad1.right_stick_x;
         double strafeRight = gamepad1.left_stick_x;
         double strafeLeft = gamepad1.left_stick_x;
-        double powerMultiplier = 0.5;
+        double powerMultiplier = 0.7;
 
         boolean driveStop = false;
 
