@@ -51,7 +51,6 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
          */
         robot.init(hardwareMap);
         //initSkystoneCamera();
-        sleep(20000);
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Init done");    //
         telemetry.update();
@@ -74,7 +73,7 @@ public class MacThunderbotsDelayParkBlueSquareAutonomous extends MacThunderbotsS
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        //sleep(20000);
+        sleep(20000);
         parkunderbridge();
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
