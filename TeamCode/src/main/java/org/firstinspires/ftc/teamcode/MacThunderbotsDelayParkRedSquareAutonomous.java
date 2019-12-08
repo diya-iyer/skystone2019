@@ -51,7 +51,6 @@ public class MacThunderbotsDelayParkRedSquareAutonomous extends MacThunderbotsSq
          */
         robot.init(hardwareMap);
         //initSkystoneCamera();
-        sleep(20000);
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Init done");    //
         telemetry.update();
