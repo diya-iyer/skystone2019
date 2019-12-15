@@ -54,7 +54,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Mecanum Thunderbots TeleOp1", group="Thunderbots")
 
-public class MacThuderbotsOpMode_Linear extends LinearOpMode {
+public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
     // Declare OpMode members.
     MacHardwarePushbot robot = new MacHardwarePushbot();   // Use a Pushbot's hardware
