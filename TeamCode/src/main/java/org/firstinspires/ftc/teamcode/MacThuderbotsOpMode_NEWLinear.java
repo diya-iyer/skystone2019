@@ -210,15 +210,18 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         boolean clawopen = gamepad2.dpad_right;
         boolean clawclose = gamepad2.dpad_left;
         double clawposition = robot.rightClaw.getPosition();
-        boolean upbasepull = gamepad1.y;
-        boolean downbasepull = gamepad1.a;
-        double ArmDown = gamepad2.right_stick_y;
-        double ArmUp = gamepad2.right_stick_y;
+        boolean upbasepull = gamepad2.y;
+        boolean downbasepull = gamepad2.a;
+        double elbowDown = gamepad2.right_stick_y;
+        double elbowUp = gamepad2.right_stick_y;
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
         boolean driveStop = false;
         double powerMultiplier = 0.3;
+
+        if ((gamepad2.right_stick_y == 0) && (gamepad2.right_stick_y == 0) )
+            driveStop = true;
 
         if (!drivePickDown && !drivePickUp) {
             driveStop = true;
@@ -262,7 +265,20 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
 
             }
+            else if (elbowUp < 0) {
 
+                telemetry.addData("Status", "ElbowMovingUp");
+                telemetry.update();
+
+                robot.elbow.setPower(powerMultiplier);
+            }
+            else if (elbowDown > 0) {
+
+                telemetry.addData("Status", "ElbowMovingDown");
+                telemetry.update();
+
+                robot.elbow.setPower(-powerMultiplier);
+            }
             telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
 
         }
