@@ -77,6 +77,8 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double MAX_POWER=1.0;
     double POWER_INCREMENT=0.2;
 
+    double powerMultiplierArm = -0.8;
+
     // private Servo grabber = null;
     @Override
     public void runOpMode() {
@@ -165,8 +167,8 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.leftDrive2.setPower(-powerMultiplier);
             robot.rightDrive2.setPower(-powerMultiplier);
         } else if (driveStop) {
-            telemetry.addData("Status", "Stopping");
-            telemetry.update();
+            //telemetry.addData("Status", "Stopping");
+            //telemetry.update();
 
             robot.leftDrive1.setPower(0);
             robot.rightDrive1.setPower(0);
@@ -218,7 +220,8 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
         boolean driveStop = false;
-        double powerMultiplier = 0.3;
+        double powerMultiplier = 0.6;
+        double powerMultiplierArm = 1;
 
         if ((gamepad2.right_stick_y == 0) && (gamepad2.right_stick_y == 0) )
             driveStop = true;
@@ -270,14 +273,17 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
                 telemetry.addData("Status", "ElbowMovingUp");
                 telemetry.update();
 
-                robot.elbow.setPower(powerMultiplier);
+                robot.elbow.setPower(powerMultiplierArm);
+                robot.elbow.getPower();
             }
             else if (elbowDown > 0) {
+
 
                 telemetry.addData("Status", "ElbowMovingDown");
                 telemetry.update();
 
-                robot.elbow.setPower(-powerMultiplier);
+                robot.elbow.setPower(-powerMultiplierArm);
+                robot.elbow.getPower();
             }
             telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
 
