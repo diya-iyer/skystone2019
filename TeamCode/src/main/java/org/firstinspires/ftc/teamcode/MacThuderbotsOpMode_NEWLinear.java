@@ -73,7 +73,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double MIN_POS = 0.0;     // Minimum rotational position
 
 
-    double powerMultiplier =0.5;
+    double powerMultiplier =1.0;
     double MAX_POWER=1.0;
     double POWER_INCREMENT=0.2;
 
@@ -214,8 +214,8 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         double clawposition = robot.rightClaw.getPosition();
         boolean upbasepull = gamepad2.y;
         boolean downbasepull = gamepad2.a;
-        double elbowDown = gamepad2.right_stick_y;
-        double elbowUp = gamepad2.right_stick_y;
+        double elbowUpDown = gamepad2.right_stick_y;
+
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
@@ -268,24 +268,23 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
 
             }
-            else if (elbowUp < 0) {
+            else if (elbowUpDown < 0) {
 
                 telemetry.addData("Status", "ElbowMovingUp");
-                telemetry.update();
+
 
                 robot.elbow.setPower(powerMultiplierArm);
-                robot.elbow.getPower();
+
             }
-            else if (elbowDown > 0) {
+            else if (elbowUpDown > 0) {
 
 
                 telemetry.addData("Status", "ElbowMovingDown");
-                telemetry.update();
-
                 robot.elbow.setPower(-powerMultiplierArm);
-                robot.elbow.getPower();
+
             }
             telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
+            telemetry.addData("Elbow", "left (%.2f)", robot.elbow.getPower());
 
         }
     }

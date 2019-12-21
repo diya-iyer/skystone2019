@@ -119,7 +119,7 @@ public class MacHardwarePushbot
         /* No Arms included yet in Macenum robot
         leftArm.setPower(0);
         rightArm.setPower(0);
-        leftArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftArm.se  tMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         */
 
