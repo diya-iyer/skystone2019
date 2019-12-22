@@ -67,15 +67,17 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double ArmDownUp;
     final double CLAWINCREMENT = 0.2;
     private Servo basepull = null;
+    final double CAPSTONE = 0.5;
     final double BASEPULL = 0.5;
     double basepullposition = 0;
+    double capstoneposition = 0;
     double MAX_POS = 3.0;     // Maximum rotational position
     double MIN_POS = 0.0;     // Minimum rotational position
 
 
-    double powerMultiplier =1.0;
-    double MAX_POWER=1.0;
-    double POWER_INCREMENT=0.2;
+    double powerMultiplier = 1.0;
+    double MAX_POWER = 1.0;
+    double POWER_INCREMENT = 0.2;
 
     double powerMultiplierArm = -0.8;
 
@@ -223,7 +225,6 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         double powerMultiplierArm = 1;
 
 
-
         if (!drivePickDown && !drivePickUp) {
 
             robot.rightArm.setPower(0);
@@ -248,13 +249,12 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.rightClaw.setPosition(clawposition);
 
         }
-         if (elbowUpDown < 0) {
+        if (elbowUpDown < 0) {
 
             telemetry.addData("Status", "ElbowMovingUp");
             robot.elbow.setPower(powerMultiplierArm);
 
-        }
-        else if (elbowUpDown > 0) {
+        } else if (elbowUpDown > 0) {
             telemetry.addData("Status", "ElbowMovingDown");
             robot.elbow.setPower(-powerMultiplierArm);
 
@@ -283,22 +283,35 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
         }
     }
-    public void powerChange(){
 
-            boolean powerDown = gamepad1.dpad_down ;
-            boolean powerUp = gamepad1.dpad_up ;
+    public void powerChange() {
 
-
-            if (powerMultiplier<MAX_POWER && powerUp) {
-                powerMultiplier=powerMultiplier+POWER_INCREMENT;
-            }
-            else if (powerMultiplier>0 && powerDown) {
-                powerMultiplier=powerMultiplier+POWER_INCREMENT;
-            }
+        boolean powerDown = gamepad1.dpad_down;
+        boolean powerUp = gamepad1.dpad_up;
 
 
-            telemetry.addData("Power Multiplier", "left (%.2f)", powerMultiplier);
+        if (powerMultiplier < MAX_POWER && powerUp) {
+            powerMultiplier = powerMultiplier + POWER_INCREMENT;
+        } else if (powerMultiplier > 0 && powerDown) {
+            powerMultiplier = powerMultiplier + POWER_INCREMENT;
+        }
 
 
+        telemetry.addData("Power Multiplier", "left (%.2f)", powerMultiplier);
+
+
+    }
+
+    public void dropcapstone() {
+
+        boolean releasecapstone = gamepad2.b;
+
+
+        if (releasecapstone)
+            capstoneposition -= CAPSTONE;
+        if (capstoneposition <= MIN_POS) {
+            capstoneposition = MAX_POS;
+        }
+        this.robot.capstone.setPosition(capstoneposition);
     }
 }
