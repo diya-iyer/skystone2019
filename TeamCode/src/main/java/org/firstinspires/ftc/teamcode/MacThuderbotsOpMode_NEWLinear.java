@@ -227,17 +227,19 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
         if (!drivePickDown && !drivePickUp) {
 
-            robot.rightArm.setPower(0);
+            robot.CenterRightArm.setPower(0);
+            robot.CenterLeftArm.setPower(0);
         }
 
         if (drivePickUp) {
-            robot.rightArm.setPower(-powerMultiplier);
+            robot.CenterRightArm.setPower(-powerMultiplier);
+            robot.CenterLeftArm.setPower(-powerMultiplier);
         } else if (drivePickDown) {
-            robot.rightArm.setPower(powerMultiplier);
-
+            robot.CenterRightArm.setPower(powerMultiplier);
+            robot.CenterLeftArm.setPower(powerMultiplier);
         } else if (clawopen) {
             telemetry.addData("Claw open", clawposition);
-            if (clawposition <= MAX_POS) {
+                if (clawposition <= MAX_POS) {
                 clawposition += CLAWINCREMENT;
             }
             robot.rightClaw.setPosition(clawposition);
@@ -278,7 +280,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
             }
 
-            telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
+            telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.CenterLeftArm.getPower(), robot.rightClaw.getPosition());
             telemetry.addData("Elbow", "left (%.2f)", robot.elbow.getPower());
 
         }
@@ -287,7 +289,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     public void powerChange() {
 
         boolean powerDown = gamepad1.dpad_down;
-        boolean powerUp = gamepad1.dpad_up;
+          boolean powerUp = gamepad1.dpad_up;
 
 
         if (powerMultiplier < MAX_POWER && powerUp) {
