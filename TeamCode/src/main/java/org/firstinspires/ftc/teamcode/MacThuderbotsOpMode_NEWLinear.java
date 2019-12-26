@@ -65,7 +65,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double leftBackwardPower;
     double rightBackwardPower;
     double ArmDownUp;
-    final double CLAWINCREMENT = 0.2;
+    final double CLAWINCREMENT = 0.5;
     private Servo basepull = null;
     final double CAPSTONE = 0.5;
     final double BASEPULL = 0.5;
