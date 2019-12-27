@@ -127,6 +127,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
         boolean driveStop = false;
 
+
         if ((gamepad1.left_stick_y == 0) && (gamepad1.right_stick_y == 0) && (gamepad1.left_stick_x == 0) && (gamepad1.right_stick_x == 0))
             driveStop = true;
 
@@ -221,6 +222,11 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
+        boolean armStop = false;
+
+        if ((gamepad2.right_stick_y == 0))
+            armStop = true;
+
         double powerMultiplier = 0.6;
         double powerMultiplierArm = 0.5;
 
@@ -250,8 +256,11 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             }
             robot.rightClaw.setPosition(clawposition);
 
-        }
-        if (elbowUpDown < 0) {
+        } if (armStop) {
+
+            robot.elbow.setPower(0);
+
+        } if (elbowUpDown < 0) {
 
             telemetry.addData("Status", "ElbowMovingUp");
             robot.elbow.setPower(powerMultiplierArm);
