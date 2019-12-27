@@ -233,10 +233,10 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
         if (drivePickUp) {
             robot.CenterRightArm.setPower(-powerMultiplier);
-            robot.CenterLeftArm.setPower(-powerMultiplier);
+            robot.CenterLeftArm.setPower(powerMultiplier);
         } else if (drivePickDown) {
             robot.CenterRightArm.setPower(powerMultiplier);
-            robot.CenterLeftArm.setPower(powerMultiplier);
+            robot.CenterLeftArm.setPower(-powerMultiplier);
         } else if (clawopen) {
             telemetry.addData("Claw open", clawposition);
                 if (clawposition <= MAX_POS) {
