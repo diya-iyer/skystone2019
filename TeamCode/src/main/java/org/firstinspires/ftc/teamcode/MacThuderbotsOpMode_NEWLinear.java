@@ -70,6 +70,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     final double CAPSTONE = 0.5;
     final double BASEPULL = 0.5;
     double basepullposition = 0;
+    double foundationposition = 0;
     double capstoneposition = 0;
     double MAX_POS = 3.0;     // Maximum rotational position
     double MIN_POS = 0.0;     // Minimum rotational position
@@ -245,7 +246,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.CenterLeftArm.setPower(-powerMultiplier);
         } else if (clawopen) {
             telemetry.addData("Claw open", clawposition);
-                if (clawposition <= MAX_POS) {
+            if (clawposition <= MAX_POS) {
                 clawposition += CLAWINCREMENT;
             }
             robot.rightClaw.setPosition(clawposition);
@@ -256,11 +257,13 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             }
             robot.rightClaw.setPosition(clawposition);
 
-        } if (armStop) {
+        }
+        if (armStop) {
 
             robot.elbow.setPower(0);
 
-        } if (elbowUpDown < 0) {
+        }
+        if (elbowUpDown < 0) {
 
             telemetry.addData("Status", "ElbowMovingUp");
             robot.elbow.setPower(powerMultiplierArm);
@@ -298,7 +301,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     public void powerChange() {
 
         boolean powerDown = gamepad1.dpad_down;
-          boolean powerUp = gamepad1.dpad_up;
+        boolean powerUp = gamepad1.dpad_up;
 
 
         if (powerMultiplier < MAX_POWER && powerUp) {
@@ -324,5 +327,33 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             capstoneposition = MAX_POS;
         }
         this.robot.capstone.setPosition(capstoneposition);
+
+    }
+
+    public void pullfoundation() {
+
+        boolean openfoundation = gamepad2.left_bumper;
+        boolean closefoundation = gamepad2.right_bumper;
+
+
+        if (openfoundation)
+            foundationposition -= CAPSTONE;
+        if (foundationposition <= MIN_POS) {
+            foundationposition = MAX_POS;
+        }
+        this.robot.foundationarm.setPosition(foundationposition);
+
+        if (closefoundation) {
+
+            foundationposition -= BASEPULL;
+            if (foundationposition >= MIN_POS) {
+                foundationposition = MAX_POS;
+            }
+            this.robot.foundationarm.setPosition(foundationposition);
+
+        }
+
+
     }
 }
+
