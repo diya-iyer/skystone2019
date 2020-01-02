@@ -318,7 +318,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
     public void dropcapstone() {
 
-        boolean releasecapstone = gamepad2.b;
+        boolean releasecapstone = gamepad2.start;
 
 
         if (releasecapstone)
@@ -351,9 +351,26 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             }
             this.robot.foundationarm.setPosition(foundationposition);
 
+            boolean extendtape = gamepad2.x;
+            boolean reducetape = gamepad2.b;
+
+            if (extendtape) {
+                robot.tapemeasurer.setPower(powerMultiplier);
+            } else if (reducetape) {
+                robot.tapemeasurer.setPower(-powerMultiplier);
+
+
+
+
+            }
+
         }
 
 
     }
 }
+
+
+
+
 
