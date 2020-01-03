@@ -222,7 +222,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
         double powerMultiplier = 0.6;
-        double powerMultiplierArm = 0.5;
+        double powerMultiplierArm = 0.8;
 
 
         if (!drivePickDown && !drivePickUp) {
