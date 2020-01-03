@@ -65,11 +65,12 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double leftBackwardPower;
     double rightBackwardPower;
     double ArmDownUp;
-    final double CLAWINCREMENT = 0.2;
+    final double CLAWINCREMENT = 0.5;
     private Servo basepull = null;
     final double CAPSTONE = 0.5;
     final double BASEPULL = 0.5;
     double basepullposition = 0;
+    double foundationposition = 0;
     double capstoneposition = 0;
     double MAX_POS = 3.0;     // Maximum rotational position
     double MIN_POS = 0.0;     // Minimum rotational position
@@ -126,6 +127,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         double powerMultiplier = 0.5;
 
         boolean driveStop = false;
+
 
         if ((gamepad1.left_stick_y == 0) && (gamepad1.right_stick_y == 0) && (gamepad1.left_stick_x == 0) && (gamepad1.right_stick_x == 0))
             driveStop = true;
@@ -221,6 +223,11 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
+        boolean armStop = false;
+
+        if ((gamepad2.right_stick_y == 0))
+            armStop = true;
+
         double powerMultiplier = 0.6;
         double powerMultiplierArm = 0.8;
 
@@ -233,13 +240,13 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
         if (drivePickUp) {
             robot.CenterRightArm.setPower(-powerMultiplier);
-            robot.CenterLeftArm.setPower(-powerMultiplier);
+            robot.CenterLeftArm.setPower(powerMultiplier);
         } else if (drivePickDown) {
             robot.CenterRightArm.setPower(powerMultiplier);
-            robot.CenterLeftArm.setPower(powerMultiplier);
+            robot.CenterLeftArm.setPower(-powerMultiplier);
         } else if (clawopen) {
             telemetry.addData("Claw open", clawposition);
-                if (clawposition <= MAX_POS) {
+            if (clawposition <= MAX_POS) {
                 clawposition += CLAWINCREMENT;
             }
             robot.rightClaw.setPosition(clawposition);
@@ -249,6 +256,11 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
                 clawposition -= CLAWINCREMENT;
             }
             robot.rightClaw.setPosition(clawposition);
+
+        }
+        if (armStop) {
+
+            robot.elbow.setPower(0);
 
         }
         if (elbowUpDown < 0) {
@@ -289,7 +301,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     public void powerChange() {
 
         boolean powerDown = gamepad1.dpad_down;
-          boolean powerUp = gamepad1.dpad_up;
+        boolean powerUp = gamepad1.dpad_up;
 
 
         if (powerMultiplier < MAX_POWER && powerUp) {
@@ -306,7 +318,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
     public void dropcapstone() {
 
-        boolean releasecapstone = gamepad2.b;
+        boolean releasecapstone = gamepad2.start;
 
 
         if (releasecapstone)
@@ -315,5 +327,50 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             capstoneposition = MAX_POS;
         }
         this.robot.capstone.setPosition(capstoneposition);
+
+    }
+
+    public void pullfoundation() {
+
+        boolean openfoundation = gamepad2.left_bumper;
+        boolean closefoundation = gamepad2.right_bumper;
+
+
+        if (openfoundation)
+            foundationposition -= CAPSTONE;
+        if (foundationposition <= MIN_POS) {
+            foundationposition = MAX_POS;
+        }
+        this.robot.foundationarm.setPosition(foundationposition);
+
+        if (closefoundation) {
+
+            foundationposition -= BASEPULL;
+            if (foundationposition >= MIN_POS) {
+                foundationposition = MAX_POS;
+            }
+            this.robot.foundationarm.setPosition(foundationposition);
+
+            boolean extendtape = gamepad2.x;
+            boolean reducetape = gamepad2.b;
+
+            if (extendtape) {
+                robot.tapemeasurer.setPower(powerMultiplier);
+            } else if (reducetape) {
+                robot.tapemeasurer.setPower(-powerMultiplier);
+
+
+
+
+            }
+
+        }
+
+
     }
 }
+
+
+
+
+
