@@ -337,17 +337,15 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
 
         if (openfoundation)
-            foundationposition -= CAPSTONE;
+            telemetry.addData("Foundation Arm Up", foundationposition);
+        foundationposition -= BASEPULL;
         if (foundationposition <= MIN_POS) {
-            foundationposition = MAX_POS;
-        }
-        this.robot.foundationarm.setPosition(foundationposition);
-
+            foundationposition +=CLAWINCREMENT;
         if (closefoundation) {
-
+            telemetry.addData("Foundation Arm Down", foundationposition);
             foundationposition -= BASEPULL;
             if (foundationposition >= MIN_POS) {
-                foundationposition = MAX_POS;
+                foundationposition -= CLAWINCREMENT;
             }
             this.robot.foundationarm.setPosition(foundationposition);
 
@@ -368,7 +366,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
 
     }
-}
+}}
 
 
 
