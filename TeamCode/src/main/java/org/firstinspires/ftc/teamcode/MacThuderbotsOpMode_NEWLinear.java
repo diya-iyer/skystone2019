@@ -66,7 +66,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double rightBackwardPower;
     double ArmDownUp;
     final double CLAWINCREMENT = 0.5;
-    final double BASEINCREMENT = 0.7;
+    final double BASEINCREMENT = 3;
     final double CAPSTONE = 0.5;
     final double BASEPULL = 0.7;
     double basepullposition = 0;
@@ -111,7 +111,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             powerChange();
             telemetry.update();
             tapemeasurepark();
-            capstonedrop();
+           //capstonedrop ();
 }
 
     }
@@ -290,7 +290,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
                 telemetry.addData("Status", "FoundationArmDown");
 
                 basepullposition -= BASEPULL;
-                if (basepullposition <= MIN_POS) {
+                if (basepullposition >= MIN_POS) {
                     basepullposition -= BASEINCREMENT;
                 }
                 robot.basepull.setPosition(basepullposition);
@@ -337,14 +337,14 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.tapemeasurer.setPower(-ParkpowerMultiplier);
         }
 }
-    public void capstonedrop() {
+ /*ublic void capstonedrop() {
 
-        boolean releasecapstone = gamepad2.start;
+        boolean releasecapstone = gamepad2.back;
 
         if (releasecapstone)
             capstoneposition = CAPSTONE;
         if (capstoneposition<= MIN_POS) {
             capstoneposition += BASEINCREMENT;
     } robot.capstone.setPosition(capstoneposition);
-}
+} */
 }
