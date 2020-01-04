@@ -66,9 +66,9 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double rightBackwardPower;
     double ArmDownUp;
     final double CLAWINCREMENT = 0.5;
-    private Servo basepull = null;
+    final double BASEINCREMENT = 0.7;
     final double CAPSTONE = 0.5;
-    final double BASEPULL = 0.5;
+    final double BASEPULL = 0.7;
     double basepullposition = 0;
     double foundationposition = 0;
     double capstoneposition = 0;
@@ -77,6 +77,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
 
     double powerMultiplier = 1.0;
+    double ParkpowerMultiplier = .5;
     double MAX_POWER = 1.0;
     double POWER_INCREMENT = 0.2;
 
@@ -107,10 +108,11 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
             driveMacChasis();
             pickUpBrick();
+            powerChange();
             telemetry.update();
-
-        }
-
+            tapemeasurepark();
+            capstonedrop();
+}
 
     }
 
@@ -216,12 +218,14 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         boolean clawopen = gamepad2.dpad_right;
         boolean clawclose = gamepad2.dpad_left;
         double clawposition = robot.rightClaw.getPosition();
-        boolean upbasepull = gamepad2.y;
-        boolean downbasepull = gamepad2.a;
+        boolean upfoundationarm = gamepad2.y;
+        boolean downfoundationarm = gamepad2.a;
         double elbowUpDown = gamepad2.right_stick_y;
 
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
+
+
 
         boolean armStop = false;
 
@@ -273,21 +277,23 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.elbow.setPower(-powerMultiplierArm);
 
         }
-        if (upbasepull) {
+        if (upfoundationarm) {
+            telemetry.addData("Status", "FoundationArmUp");
 
             basepullposition -= BASEPULL;
             if (basepullposition <= MIN_POS) {
-                basepullposition = MAX_POS;
+                basepullposition += BASEINCREMENT;
             }
-            basepull.setPosition(basepullposition);
+            robot.basepull.setPosition(basepullposition);
 
-            if (downbasepull) {
+            if (downfoundationarm) {
+                telemetry.addData("Status", "FoundationArmDown");
 
                 basepullposition -= BASEPULL;
                 if (basepullposition <= MIN_POS) {
-                    basepullposition = MAX_POS;
+                    basepullposition -= BASEINCREMENT;
                 }
-                basepull.setPosition(basepullposition);
+                robot.basepull.setPosition(basepullposition);
 
 
             }
@@ -316,59 +322,29 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
     }
 
-    public void dropcapstone() {
+    public void tapemeasurepark()  {
+
+      //boolean releasecapstone = gamepad2.start;
+        boolean extendtape = gamepad2.x;
+        boolean reducetape = gamepad2.b;
+     if (!extendtape && !reducetape)
+         robot.tapemeasurer.setPower(0);
+        if (extendtape) {
+            telemetry.addData("Status", "TapeOut");
+            robot.tapemeasurer.setPower(ParkpowerMultiplier);
+        } else if (reducetape) {
+            telemetry.addData("Status", "TapeIn");
+            robot.tapemeasurer.setPower(-ParkpowerMultiplier);
+        }
+}
+    public void capstonedrop() {
 
         boolean releasecapstone = gamepad2.start;
 
-
         if (releasecapstone)
-            capstoneposition -= CAPSTONE;
-        if (capstoneposition <= MIN_POS) {
-            capstoneposition = MAX_POS;
-        }
-        this.robot.capstone.setPosition(capstoneposition);
-
-    }
-
-    public void pullfoundation() {
-
-        boolean openfoundation = gamepad2.left_bumper;
-        boolean closefoundation = gamepad2.right_bumper;
-
-
-        if (openfoundation)
-            telemetry.addData("Foundation Arm Up", foundationposition);
-        foundationposition -= BASEPULL;
-        if (foundationposition <= MIN_POS) {
-            foundationposition +=CLAWINCREMENT;
-        if (closefoundation) {
-            telemetry.addData("Foundation Arm Down", foundationposition);
-            foundationposition -= BASEPULL;
-            if (foundationposition >= MIN_POS) {
-                foundationposition -= CLAWINCREMENT;
-            }
-            this.robot.foundationarm.setPosition(foundationposition);
-
-            boolean extendtape = gamepad2.x;
-            boolean reducetape = gamepad2.b;
-
-            if (extendtape) {
-                robot.tapemeasurer.setPower(powerMultiplier);
-            } else if (reducetape) {
-                robot.tapemeasurer.setPower(-powerMultiplier);
-
-
-
-
-            }
-
-        }
-
-
-    }
-}}
-
-
-
-
-
+            capstoneposition = CAPSTONE;
+        if (capstoneposition<= MIN_POS) {
+            capstoneposition += BASEINCREMENT;
+    } robot.capstone.setPosition(capstoneposition);
+}
+}
