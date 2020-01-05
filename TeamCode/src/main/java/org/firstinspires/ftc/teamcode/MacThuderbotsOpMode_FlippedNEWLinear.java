@@ -67,8 +67,8 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
     final double CAPSTONEINCREMENT = 0.2;
     //final double CAPSTONE = 0.5;
-    final double CAPSTONE_DROP_POS= 1.0;
-    final double CAPSTONE_START_POS= 0.5;
+    final double CAPSTONE_DROP_POS = 1.0;
+    final double CAPSTONE_START_POS = 0.5;
 
     final double BASEPULL = 0.7;
     double basepullposition = 0;
@@ -281,29 +281,29 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
         if (upfoundationarm) {
             telemetry.addData("Status", "FoundationArmUp");
 
-            basepullposition -= BASEPULL;
-            if (basepullposition <= MIN_POS) {
-                basepullposition += BASEINCREMENT;
-            }
-            robot.basepull.setPosition(basepullposition);
+            basepullposition = this.robot.basepull1.MIN_POSITION+CAPSTONEINCREMENT;
+            robot.basepull1.setPosition(basepullposition);
+            robot.basepull2.setPosition(basepullposition);
 
-            if (downfoundationarm) {
-                telemetry.addData("Status", "FoundationArmDown");
+        } else if (downfoundationarm) {
+            telemetry.addData("Status", "FoundationArmDown");
 
-                basepullposition -= BASEPULL;
-                if (basepullposition >= MIN_POS) {
-                    basepullposition -= BASEINCREMENT;
-                }
-                robot.basepull.setPosition(basepullposition);
+            basepullposition = this.robot.capstone.MAX_POSITION-CAPSTONEINCREMENT;
 
+           
+            robot.basepull1.setPosition(basepullposition);
+            robot.basepull2.setPosition(basepullposition);
 
-            }
-
-            telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.CenterLeftArm.getPower(), robot.rightClaw.getPosition());
-            telemetry.addData("Elbow", "left (%.2f)", robot.elbow.getPower());
 
         }
-    }
+
+        telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.CenterLeftArm.getPower(), robot.rightClaw.getPosition());
+        telemetry.addData("Elbow", "left (%.2f)", robot.elbow.getPower());
+        telemetry.addData("Base Pull 1 & 2 ", "left (%.2f) left (%.2f)", robot.basepull1.getPosition(),robot.basepull2.getPosition());
+
+
+
+}
 
     public void powerChange() {
 
@@ -347,17 +347,10 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
         telemetry.addData("Capstone - Current position", "left (%.2f)", robot.capstone.getPosition());
         if (dropcapstone)
             capstoneposition = this.robot.capstone.MIN_POSITION+CAPSTONEINCREMENT;
-        /*if (capstoneposition <= MIN_POS) {
-            capstoneposition += CAPSTONEINCREMENT;
-        }
-        robot.capstone.setPosition(capstoneposition);*/
 
         else if (liftcapstone)
             capstoneposition = this.robot.capstone.MAX_POSITION-CAPSTONEINCREMENT;
 
-        /*if (capstoneposition <= MIN_POS) {
-            capstoneposition -= CAPSTONEINCREMENT;
-        }*/
         robot.capstone.setPosition(capstoneposition);
         telemetry.addData("Capstone - New position", "left (%.2f)", robot.capstone.getPosition());
 

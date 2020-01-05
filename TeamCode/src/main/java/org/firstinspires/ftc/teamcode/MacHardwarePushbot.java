@@ -69,7 +69,8 @@ public class MacHardwarePushbot
     //public Servo    foundationarm = null;
     public DcMotor  tapemeasurer = null;
 
-    public Servo basepull = null;
+    public Servo basepull1 = null;
+    public Servo basepull2 = null;
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.25 ;
@@ -99,8 +100,9 @@ public class MacHardwarePushbot
         CenterLeftArm = hwMap.get(DcMotor.class, "CenterLeftArm");
         rightClaw = hwMap.get(Servo.class, "right_claw");
         elbow     = hwMap.get(DcMotor.class,"elbow");
-        basepull = hwMap.get(Servo.class, "base_pull");
-      //  foundationarm = hwMap.get(Servo.class, "foundation_arm");
+        basepull1 = hwMap.get(Servo.class, "base_pull1");
+        basepull2 = hwMap.get(Servo.class, "base_pull2");
+        //  foundationarm = hwMap.get(Servo.class, "foundation_arm");
         tapemeasurer = hwMap.get(DcMotor.class, "tape_measurer");
         capstone = hwMap.get(Servo.class, "capstone");
 
@@ -136,6 +138,10 @@ public class MacHardwarePushbot
        // rightClaw = hwMap.get(Servo.class, "right_hand");
        // leftClaw.setPosition(MID_SERVO);
        // rightClaw.setPosition(MID_SERVO);
+
+        basepull1.setDirection(Servo.Direction.FORWARD);
+        basepull2.setDirection(Servo.Direction.FORWARD);
+
     }
  }
 

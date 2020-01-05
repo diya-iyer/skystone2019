@@ -31,10 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -248,7 +245,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
             if (basepullposition >= MAX_POS) {
                 basepullposition = MAX_POS;
             }
-            robot.basepull.setPosition(basepullposition);
+            robot.basepull1.setPosition(basepullposition);
         }
         else if (downbasepull) {
 
@@ -256,11 +253,11 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
                 if (basepullposition <= MIN_POS) {
                     basepullposition = MIN_POS;
                 }
-                robot.basepull.setPosition(basepullposition);
+                robot.basepull1.setPosition(basepullposition);
 
         }
         telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.rightClaw.getPosition());
-        telemetry.addData(" Base Pull", "left (%.2f)", robot.basepull.getPosition());
+        telemetry.addData(" Base Pull", "left (%.2f)", robot.basepull1.getPosition());
     }
     public void powerChange(){
 
