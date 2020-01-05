@@ -74,6 +74,10 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double MAX_POS = 3.0;     // Maximum rotational position
     double MIN_POS = 0.0;     // Minimum rotational position
 
+    double CAPSTONE_DROP_POS = 3.0;     // Maximum rotational position
+
+
+
 
     double powerMultiplier = 1.0;
     double MAX_POWER = 1.0;
@@ -305,13 +309,15 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     public void dropcapstone() {
 
         boolean releasecapstone = gamepad2.b;
-
-
-        if (releasecapstone)
+        if (releasecapstone) {
+            capstoneposition=this.robot.capstone.getPosition();
             capstoneposition -= CAPSTONE;
-        if (capstoneposition <= MIN_POS) {
-            capstoneposition = MAX_POS;
+            if (capstoneposition <= MIN_POS) {
+                capstoneposition = MIN_POS;
+            }
+            this.robot.capstone.setPosition(capstoneposition);
+            telemetry.addData("Dropping capstone. B pressed: ",  releasecapstone);
+            telemetry.addData("Capstone  position", "left (%.2f)", capstoneposition);
         }
-        this.robot.capstone.setPosition(capstoneposition);
     }
 }
