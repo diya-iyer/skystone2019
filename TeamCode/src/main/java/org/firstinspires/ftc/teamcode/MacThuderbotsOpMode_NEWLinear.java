@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
  * name="Basic: Linear OpMode"  changed to name="Basic: Thunderbots OpMode"
  */
 
-@TeleOp(name="Basic: Mecanum Thunderbots TeleOp1", group="Thunderbots")
+@TeleOp(name="Basic: Mecanum Thunderbots NEW TeleOp1", group="Thunderbots")
 
 public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
@@ -65,21 +65,19 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
     double leftBackwardPower;
     double rightBackwardPower;
     double ArmDownUp;
-    final double CLAWINCREMENT = 0.2;
-    private Servo basepull = null;
+    final double CLAWINCREMENT = 0.5;
+    final double BASEINCREMENT = 3;
     final double CAPSTONE = 0.5;
-    final double BASEPULL = 0.5;
+    final double BASEPULL = 0.7;
     double basepullposition = 0;
+    double foundationposition = 0;
     double capstoneposition = 0;
     double MAX_POS = 3.0;     // Maximum rotational position
     double MIN_POS = 0.0;     // Minimum rotational position
 
-    double CAPSTONE_DROP_POS = 3.0;     // Maximum rotational position
-
-
-
 
     double powerMultiplier = 1.0;
+    double ParkpowerMultiplier = .5;
     double MAX_POWER = 1.0;
     double POWER_INCREMENT = 0.2;
 
@@ -110,10 +108,11 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
             driveMacChasis();
             pickUpBrick();
+            powerChange();
             telemetry.update();
-
-        }
-
+            tapemeasurepark();
+           //capstonedrop ();
+}
 
     }
 
@@ -130,6 +129,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         double powerMultiplier = 0.5;
 
         boolean driveStop = false;
+
 
         if ((gamepad1.left_stick_y == 0) && (gamepad1.right_stick_y == 0) && (gamepad1.left_stick_x == 0) && (gamepad1.right_stick_x == 0))
             driveStop = true;
@@ -218,27 +218,36 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         boolean clawopen = gamepad2.dpad_right;
         boolean clawclose = gamepad2.dpad_left;
         double clawposition = robot.rightClaw.getPosition();
-        boolean upbasepull = gamepad2.y;
-        boolean downbasepull = gamepad2.a;
+        boolean upfoundationarm = gamepad2.y;
+        boolean downfoundationarm = gamepad2.a;
         double elbowUpDown = gamepad2.right_stick_y;
 
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
 
+
+
+        boolean armStop = false;
+
+        if ((gamepad2.right_stick_y == 0))
+            armStop = true;
+
         double powerMultiplier = 0.6;
-        double powerMultiplierArm = 0.5;
+        double powerMultiplierArm = 0.8;
 
 
         if (!drivePickDown && !drivePickUp) {
 
-            robot.rightArm.setPower(0);
+            robot.CenterRightArm.setPower(0);
+            robot.CenterLeftArm.setPower(0);
         }
 
         if (drivePickUp) {
-            robot.rightArm.setPower(-powerMultiplier);
+            robot.CenterRightArm.setPower(-powerMultiplier);
+            robot.CenterLeftArm.setPower(powerMultiplier);
         } else if (drivePickDown) {
-            robot.rightArm.setPower(powerMultiplier);
-
+            robot.CenterRightArm.setPower(powerMultiplier);
+            robot.CenterLeftArm.setPower(-powerMultiplier);
         } else if (clawopen) {
             telemetry.addData("Claw open", clawposition);
             if (clawposition <= MAX_POS) {
@@ -253,6 +262,11 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.rightClaw.setPosition(clawposition);
 
         }
+        if (armStop) {
+
+            robot.elbow.setPower(0);
+
+        }
         if (elbowUpDown < 0) {
 
             telemetry.addData("Status", "ElbowMovingUp");
@@ -263,26 +277,28 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.elbow.setPower(-powerMultiplierArm);
 
         }
-        if (upbasepull) {
+        if (upfoundationarm) {
+            telemetry.addData("Status", "FoundationArmUp");
 
             basepullposition -= BASEPULL;
             if (basepullposition <= MIN_POS) {
-                basepullposition = MAX_POS;
+                basepullposition += BASEINCREMENT;
             }
-            basepull.setPosition(basepullposition);
+            robot.basepull.setPosition(basepullposition);
 
-            if (downbasepull) {
+            if (downfoundationarm) {
+                telemetry.addData("Status", "FoundationArmDown");
 
                 basepullposition -= BASEPULL;
-                if (basepullposition <= MIN_POS) {
-                    basepullposition = MAX_POS;
+                if (basepullposition >= MIN_POS) {
+                    basepullposition -= BASEINCREMENT;
                 }
-                basepull.setPosition(basepullposition);
+                robot.basepull.setPosition(basepullposition);
 
 
             }
 
-            telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
+            telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.CenterLeftArm.getPower(), robot.rightClaw.getPosition());
             telemetry.addData("Elbow", "left (%.2f)", robot.elbow.getPower());
 
         }
@@ -306,18 +322,29 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
 
     }
 
-    public void dropcapstone() {
+    public void tapemeasurepark()  {
 
-        boolean releasecapstone = gamepad2.b;
-        if (releasecapstone) {
-            capstoneposition=this.robot.capstone.getPosition();
-            capstoneposition -= CAPSTONE;
-            if (capstoneposition <= MIN_POS) {
-                capstoneposition = MIN_POS;
-            }
-            this.robot.capstone.setPosition(capstoneposition);
-            telemetry.addData("Dropping capstone. B pressed: ",  releasecapstone);
-            telemetry.addData("Capstone  position", "left (%.2f)", capstoneposition);
+      //boolean releasecapstone = gamepad2.start;
+        boolean extendtape = gamepad2.x;
+        boolean reducetape = gamepad2.b;
+     if (!extendtape && !reducetape)
+         robot.tapemeasurer.setPower(0);
+        if (extendtape) {
+            telemetry.addData("Status", "TapeOut");
+            robot.tapemeasurer.setPower(ParkpowerMultiplier);
+        } else if (reducetape) {
+            telemetry.addData("Status", "TapeIn");
+            robot.tapemeasurer.setPower(-ParkpowerMultiplier);
         }
-    }
+}
+ /*ublic void capstonedrop() {
+
+        boolean releasecapstone = gamepad2.back;
+
+        if (releasecapstone)
+            capstoneposition = CAPSTONE;
+        if (capstoneposition<= MIN_POS) {
+            capstoneposition += BASEINCREMENT;
+    } robot.capstone.setPosition(capstoneposition);
+} */
 }

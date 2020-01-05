@@ -83,7 +83,7 @@ public class MacThunderbotsDelayParkRedTriangleAutonomous extends MacThunderbots
 
         this.crossSkybridge();
         //pull bases
-        robot.rightArm.setPower(1.0);
+        robot.CenterRightArm.setPower(1.0);
         encoderDrive(DRIVE_SPEED, -24, -24, 0.5);
 
 

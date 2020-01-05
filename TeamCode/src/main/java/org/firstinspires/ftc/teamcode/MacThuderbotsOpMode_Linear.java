@@ -220,13 +220,13 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 
         if (!drivePickDown && !drivePickUp) {
             driveStop = true;
-            robot.rightArm.setPower(0);
+            robot.CenterRightArm.setPower(0);
         }
 
         if (drivePickUp) {
-            robot.rightArm.setPower(-powerMultiplier);
+            robot.CenterRightArm.setPower(-powerMultiplier);
         } else if (drivePickDown) {
-            robot.rightArm.setPower(powerMultiplier);
+            robot.CenterRightArm.setPower(powerMultiplier);
 
         } else if (clawopen) {
             telemetry.addData("Claw open", clawposition);
@@ -259,7 +259,7 @@ public class MacThuderbotsOpMode_Linear extends LinearOpMode {
                 robot.basepull.setPosition(basepullposition);
 
         }
-        telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.rightArm.getPower(), robot.rightClaw.getPosition());
+        telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.rightClaw.getPosition());
         telemetry.addData(" Base Pull", "left (%.2f)", robot.basepull.getPosition());
     }
     public void powerChange(){
