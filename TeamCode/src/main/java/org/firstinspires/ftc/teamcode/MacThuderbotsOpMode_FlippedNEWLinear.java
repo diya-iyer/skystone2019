@@ -64,8 +64,12 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     double ArmDownUp;
     final double CLAWINCREMENT = 0.5;
     final double BASEINCREMENT = 3;
-    final double CAPSTONEINCREMENT = 0.7;
-    final double CAPSTONE = 0.5;
+
+    final double CAPSTONEINCREMENT = 0.2;
+    //final double CAPSTONE = 0.5;
+    final double CAPSTONE_DROP_POS= 1.0;
+    final double CAPSTONE_START_POS= 0.5;
+
     final double BASEPULL = 0.7;
     double basepullposition = 0;
     double foundationposition = 0;
@@ -338,22 +342,27 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     public void capstonedrop() {
 
         boolean releasecapstone = gamepad2.start;
-        boolean returncapstone = gamepad2.back;
+        boolean incrementcapstone = gamepad2.back;
 
-
+        telemetry.addData("Capstone - Current position", "TapeIn", robot.capstone.getPosition());
         if (releasecapstone)
-            capstoneposition = CAPSTONE;
-        if (capstoneposition <= MIN_POS) {
+            capstoneposition = CAPSTONE_DROP_POS;
+        /*if (capstoneposition <= MIN_POS) {
             capstoneposition += CAPSTONEINCREMENT;
         }
-        robot.capstone.setPosition(capstoneposition);
+        robot.capstone.setPosition(capstoneposition);*/
 
-        if (returncapstone)
-            capstoneposition = CAPSTONE;
-        if (capstoneposition <= MIN_POS) {
-            capstoneposition -= CAPSTONEINCREMENT;
+        else if (incrementcapstone) {
+            if (capstoneposition <= this.robot.capstone.MAX_POSITION)
+                capstoneposition += CAPSTONEINCREMENT;
+            else if (capstoneposition >= this.robot.capstone.MAX_POSITION)
+                capstoneposition = this.robot.capstone.MIN_POSITION+CAPSTONEINCREMENT;
         }
+        /*if (capstoneposition <= MIN_POS) {
+            capstoneposition -= CAPSTONEINCREMENT;
+        }*/
         robot.capstone.setPosition(capstoneposition);
+        telemetry.addData("Capstone - New position", "TapeIn", robot.capstone.getPosition());
 
 
     }
