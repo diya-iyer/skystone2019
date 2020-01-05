@@ -31,10 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -54,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Mecanum Thunderbots NEW TeleOp1", group="Thunderbots")
 
-public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
+public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
     // Declare OpMode members.
     MacHardwarePushbot robot = new MacHardwarePushbot();   // Use a Pushbot's hardware
@@ -155,7 +152,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.leftDrive2.setPower(-powerMultiplier);
             robot.rightDrive2.setPower(powerMultiplier);
 
-        } else if (driveForward < 0) {
+        } else if (driveForward > 0) {
 
             telemetry.addData("Status", "Moving forward");
             telemetry.update();
@@ -164,7 +161,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.rightDrive1.setPower(powerMultiplier);
             robot.leftDrive2.setPower(powerMultiplier);
             robot.rightDrive2.setPower(powerMultiplier);
-        } else if (driveBackward > 0) {
+        } else if (driveBackward < 0) {
 
             telemetry.addData("Status", "Moving backward");
             telemetry.update();
@@ -181,7 +178,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.rightDrive1.setPower(0);
             robot.leftDrive2.setPower(0);
             robot.rightDrive2.setPower(0);
-        } else if (strafeRight > 0) {
+        } else if (strafeRight < 0) {
             telemetry.addData("Status", "Moving Right");
             telemetry.update();
 
@@ -190,7 +187,7 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.leftDrive2.setPower(-powerMultiplier);
             robot.rightDrive2.setPower(powerMultiplier);
 
-        } else if (strafeLeft < 0) {
+        } else if (strafeLeft > 0) {
             telemetry.addData("Status", "Moving Left");
             telemetry.update();
 
@@ -243,11 +240,11 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
         }
 
         if (drivePickUp) {
-            robot.CenterRightArm.setPower(-powerMultiplier);
-            robot.CenterLeftArm.setPower(powerMultiplier);
-        } else if (drivePickDown) {
             robot.CenterRightArm.setPower(powerMultiplier);
             robot.CenterLeftArm.setPower(-powerMultiplier);
+        } else if (drivePickDown) {
+            robot.CenterRightArm.setPower(-powerMultiplier);
+            robot.CenterLeftArm.setPower(powerMultiplier);
         } else if (clawopen) {
             telemetry.addData("Claw open", clawposition);
             if (clawposition <= MAX_POS) {
@@ -267,12 +264,12 @@ public class MacThuderbotsOpMode_NEWLinear extends LinearOpMode {
             robot.elbow.setPower(0);
 
         }
-        if (elbowUpDown > 0) {
+        if (elbowUpDown < 0) {
 
             telemetry.addData("Status", "ElbowMovingUp");
             robot.elbow.setPower(powerMultiplierArm);
 
-        } else if (elbowUpDown < 0) {
+        } else if (elbowUpDown > 0) {
             telemetry.addData("Status", "ElbowMovingDown");
             robot.elbow.setPower(-powerMultiplierArm);
 
