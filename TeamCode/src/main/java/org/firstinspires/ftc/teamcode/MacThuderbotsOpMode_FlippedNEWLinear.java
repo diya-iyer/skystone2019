@@ -341,28 +341,25 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
     public void capstonedrop() {
 
-        boolean releasecapstone = gamepad2.start;
-        boolean incrementcapstone = gamepad2.back;
+        boolean dropcapstone = gamepad2.start;
+        boolean liftcapstone = gamepad2.back;
 
-        telemetry.addData("Capstone - Current position", "TapeIn", robot.capstone.getPosition());
-        if (releasecapstone)
-            capstoneposition = CAPSTONE_DROP_POS;
+        telemetry.addData("Capstone - Current position", "left (%.2f)", robot.capstone.getPosition());
+        if (dropcapstone)
+            capstoneposition = this.robot.capstone.MIN_POSITION+CAPSTONEINCREMENT;
         /*if (capstoneposition <= MIN_POS) {
             capstoneposition += CAPSTONEINCREMENT;
         }
         robot.capstone.setPosition(capstoneposition);*/
 
-        else if (incrementcapstone) {
-            if (capstoneposition <= this.robot.capstone.MAX_POSITION)
-                capstoneposition += CAPSTONEINCREMENT;
-            else if (capstoneposition >= this.robot.capstone.MAX_POSITION)
-                capstoneposition = this.robot.capstone.MIN_POSITION+CAPSTONEINCREMENT;
-        }
+        else if (liftcapstone)
+            capstoneposition = this.robot.capstone.MAX_POSITION-CAPSTONEINCREMENT;
+
         /*if (capstoneposition <= MIN_POS) {
             capstoneposition -= CAPSTONEINCREMENT;
         }*/
         robot.capstone.setPosition(capstoneposition);
-        telemetry.addData("Capstone - New position", "TapeIn", robot.capstone.getPosition());
+        telemetry.addData("Capstone - New position", "left (%.2f)", robot.capstone.getPosition());
 
 
     }
