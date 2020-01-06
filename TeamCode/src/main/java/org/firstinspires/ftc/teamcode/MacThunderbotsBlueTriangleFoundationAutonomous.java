@@ -101,12 +101,16 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         robot.basepull1.setPosition(basepullposition);
         robot.basepull2.setPosition(basepullposition);
 
-        //stafe  back
+        //sleep so servos have time to initialize
+        sleep(500);
+
+        //strafe  back
+
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-        encoderDrive(DRIVE_SPEED, 25, 25, 3.0);
+        encoderDrive(DRIVE_SPEED, 25, 25, 1.5);
 
         //release foundation arm
         telemetry.addData("Status", "FoundationArmUp");
