@@ -49,7 +49,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * name="Basic: Linear OpMode"  changed to name="Basic: Thunderbots OpMode"
  */
 
-@TeleOp(name="Basic: Mecanum Thunderbots NEW TeleOp1", group="Thunderbots")
+@TeleOp(name="Basic: Mecanum Thunderbots Flipped NEW TeleOp1", group="Thunderbots")
 
 public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
@@ -63,7 +63,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     double rightBackwardPower;
     double ArmDownUp;
     final double CLAWINCREMENT = 0.5;
-    final double BASEINCREMENT = 3;
+    final double BASEINCREMENT = 1.7;
 
     final double CAPSTONEINCREMENT = 0.2;
     //final double CAPSTONE = 0.5;
@@ -281,14 +281,14 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
         if (upfoundationarm) {
             telemetry.addData("Status", "FoundationArmUp");
 
-            basepullposition = this.robot.basepull1.MIN_POSITION+CAPSTONEINCREMENT;
+            basepullposition = this.robot.basepull1.MIN_POSITION+BASEINCREMENT;
             robot.basepull1.setPosition(basepullposition);
             robot.basepull2.setPosition(basepullposition);
 
         } else if (downfoundationarm) {
             telemetry.addData("Status", "FoundationArmDown");
 
-            basepullposition = this.robot.capstone.MAX_POSITION-CAPSTONEINCREMENT;
+            basepullposition = this.robot.capstone.MAX_POSITION-BASEINCREMENT;
 
 
             robot.basepull1.setPosition(basepullposition);
@@ -341,8 +341,9 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
     public void capstonedrop() {
 
-        boolean dropcapstone = gamepad2.start;
-        boolean liftcapstone = gamepad2.back;
+        boolean dropcapstone = gamepad2.back
+                ;
+        boolean liftcapstone = gamepad2.start;
 
         telemetry.addData("Capstone - Current position", "left (%.2f)", robot.capstone.getPosition());
         if (dropcapstone)
