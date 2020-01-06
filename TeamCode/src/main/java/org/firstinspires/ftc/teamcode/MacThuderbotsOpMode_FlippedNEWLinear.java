@@ -63,7 +63,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     double rightBackwardPower;
     double ArmDownUp;
     final double CLAWINCREMENT = 0.5;
-    final double BASEINCREMENT = 1.7;
+    final double BASEINCREMENT = 1.5;
 
     final double CAPSTONEINCREMENT = 0.2;
     //final double CAPSTONE = 0.5;
@@ -341,9 +341,9 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
     public void capstonedrop() {
 
-        boolean dropcapstone = gamepad2.back
+        boolean dropcapstone = gamepad2.left_bumper;
                 ;
-        boolean liftcapstone = gamepad2.start;
+        boolean liftcapstone = gamepad2.right_bumper;
 
         telemetry.addData("Capstone - Current position", "left (%.2f)", robot.capstone.getPosition());
         if (dropcapstone)
