@@ -290,7 +290,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
             basepullposition = this.robot.capstone.MAX_POSITION-CAPSTONEINCREMENT;
 
-           
+
             robot.basepull1.setPosition(basepullposition);
             robot.basepull2.setPosition(basepullposition);
 

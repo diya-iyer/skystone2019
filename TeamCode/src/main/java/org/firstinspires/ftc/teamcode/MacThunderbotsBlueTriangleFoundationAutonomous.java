@@ -87,64 +87,35 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
 
         double powerMultiplier = 0.5;
 
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        //strafe to foundation
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        encoderDrive(DRIVE_SPEED, 25, 25, 0.5);
+        encoderDrive(DRIVE_SPEED, 25, 25, 3.0);
 
         //add foundation arm dropping and holding onto foundation code
+        telemetry.addData("Status", "FoundationArmDown");
+        double basepullposition = this.robot.capstone.MAX_POSITION-0.2;
+        robot.basepull1.setPosition(basepullposition);
+        robot.basepull2.setPosition(basepullposition);
 
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        encoderDrive(DRIVE_SPEED, 25, 25, 0.5);
-
-        //at this point the robot should be at its furthest point up against the west wall
-        //add code for foundation arm to lift up and release foundation
-
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        encoderDrive(DRIVE_SPEED, 56, 56, 1.5);
-
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        encoderDrive(DRIVE_SPEED, 40, 40, 0.5);
-
+        //stafe  back
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        encoderDrive(DRIVE_SPEED, 25, 25, 3.0);
 
-        encoderDrive(DRIVE_SPEED, 56, 56, 1.5);
+        //release foundation arm
+        telemetry.addData("Status", "FoundationArmUp");
+        basepullposition = this.robot.capstone.MIN_POSITION+0.2;
+        robot.basepull1.setPosition(basepullposition);
+        robot.basepull2.setPosition(basepullposition);
 
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        encoderDrive(DRIVE_SPEED, 15, 15, 0.5);
-
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        encoderDrive(DRIVE_SPEED, 64, 64, 1.5);
-        //sideways must be quadrupled due to strafing needing more rotations
-        //robot.leftDrive1.setPower(-powerMultiplier);
-        //robot.rightDrive1.setPower(powerMultiplier);
-        //robot.leftDrive2.setPower(powerMultiplier);
-        //robot.rightDrive2.setPower(-powerMultiplier);
 
     }
+    
 }
