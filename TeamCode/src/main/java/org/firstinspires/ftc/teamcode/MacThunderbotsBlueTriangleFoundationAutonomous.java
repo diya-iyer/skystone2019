@@ -88,29 +88,29 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         double powerMultiplier = 0.5;
 
         //strafe to foundation
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        encoderDrive(DRIVE_SPEED, 25, 25, 3.0);
-
-        //add foundation arm dropping and holding onto foundation code
-        telemetry.addData("Status", "FoundationArmDown");
-        double basepullposition = this.robot.capstone.MAX_POSITION-0.2;
-        robot.basepull1.setPosition(basepullposition);
-        robot.basepull2.setPosition(basepullposition);
-
-        //stafe  back
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        encoderDrive(DRIVE_SPEED, 25, 25, 1.5);
+
+        //add foundation arm dropping and holding onto foundation code
+        telemetry.addData("Status", "FoundationArmDown");
+        double basepullposition = this.robot.capstone.MIN_POSITION+0.2;
+        robot.basepull1.setPosition(basepullposition);
+        robot.basepull2.setPosition(basepullposition);
+
+        //stafe  back
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
         encoderDrive(DRIVE_SPEED, 25, 25, 3.0);
 
         //release foundation arm
         telemetry.addData("Status", "FoundationArmUp");
-        basepullposition = this.robot.capstone.MIN_POSITION+0.2;
+        basepullposition = this.robot.capstone.MAX_POSITION-0.2;
         robot.basepull1.setPosition(basepullposition);
         robot.basepull2.setPosition(basepullposition);
 
