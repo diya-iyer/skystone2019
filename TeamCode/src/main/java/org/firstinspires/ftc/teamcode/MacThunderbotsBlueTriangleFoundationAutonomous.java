@@ -85,7 +85,7 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
 
     public void movefoundation() {
 
-        double powerMultiplier = 0.5;
+        double powerMultiplier = 0.3;
 
         //strafe to foundation
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -97,7 +97,7 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
 
         //add foundation arm dropping and holding onto foundation code
         telemetry.addData("Status", "FoundationArmDown");
-        double basepullposition = this.robot.capstone.MIN_POSITION+0.2;
+        double basepullposition = this.robot.capstone.MIN_POSITION+0.1;
         robot.basepull1.setPosition(basepullposition);
         robot.basepull2.setPosition(basepullposition);
 
@@ -114,7 +114,7 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
 
         //release foundation arm
         telemetry.addData("Status", "FoundationArmUp");
-        basepullposition = this.robot.capstone.MAX_POSITION-0.2;
+        basepullposition = this.robot.capstone.MAX_POSITION-0.1;
         robot.basepull1.setPosition(basepullposition);
         robot.basepull2.setPosition(basepullposition);
 
