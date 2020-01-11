@@ -95,11 +95,18 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
 
         encoderDrive(DRIVE_SPEED, 25, 25, 0.7);
 
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        encoderDrive(DRIVE_SPEED, 25, 25, 0.4);
+
         //add foundation arm dropping and holding onto foundation code
         telemetry.addData("Status", "FoundationArmDown");
-        double basepullposition = this.robot.capstone.MIN_POSITION+1.5;
+        double basepullposition = this.robot.capstone.MIN_POSITION-1.5;
         robot.basepull1.setPosition(basepullposition);
-        basepullposition = this.robot.capstone.MAX_POSITION-1.5;
+        basepullposition = this.robot.capstone.MAX_POSITION+1.5;
         robot.basepull2.setPosition(basepullposition);
 
         //sleep so servos have time to initialize
@@ -114,16 +121,16 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         encoderDrive(DRIVE_SPEED, 25, 25, 1.5);
 
         telemetry.addData("Status", "FoundationArmUp");
-        basepullposition = this.robot.capstone.MAX_POSITION-1.5;
+        basepullposition = this.robot.capstone.MAX_POSITION+1.5;
         robot.basepull1.setPosition(basepullposition);
-        basepullposition = this.robot.capstone.MIN_POSITION+1.5;
+        basepullposition = this.robot.capstone.MIN_POSITION-1.5;
         robot.basepull2.setPosition(basepullposition);
 
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-        encoderDrive(DRIVE_SPEED, 25, 25, .8);
+        encoderDrive(DRIVE_SPEED, 25, 25, 2.0);
 
 
 

@@ -78,7 +78,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
 
     double powerMultiplier = 1.0;
-    double ParkpowerMultiplier = .5;
+    double ParkpowerMultiplier = .9;
     double MAX_POWER = 1.0;
     double POWER_INCREMENT = 0.2;
 
