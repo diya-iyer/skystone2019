@@ -77,9 +77,9 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     double MIN_POS = 0.0;     // Minimum rotational position
 
 
-    double powerMultiplier = 1.0;
+    double powerMultiplier = 1.0; // 1.0
     double ParkpowerMultiplier = .9;
-    double MAX_POWER = 1.0;
+    double MAX_POWER = 1.0;    // 1.00
     double POWER_INCREMENT = 0.2;
 
     double powerMultiplierArm = -0.8;
@@ -127,7 +127,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
         double turnLeft = gamepad1.right_stick_x;
         double strafeRight = gamepad1.left_stick_x;
         double strafeLeft = gamepad1.left_stick_x;
-        double powerMultiplier = 0.5;
+        //double powerMultiplier = 1.0;
 
         boolean driveStop = false;
 
