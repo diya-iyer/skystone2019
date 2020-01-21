@@ -28,6 +28,8 @@ package org.firstinspires.ftc.teamcode;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import android.os.AsyncTask;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -57,10 +59,12 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         robot.rightDrive1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftDrive2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftDrive1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.leftDrive2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.elbow.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         // Send telemetry message to indicate successful Encoder reset
@@ -85,7 +89,7 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
 
     public void movefoundation() {
 
-        double powerMultiplier = 0.2;
+        double powerMultiplier = 0.1;
 
         //move to foundation
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -93,7 +97,7 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        encoderDrive(DRIVE_SPEED, 25, 25, 0.9);
+        encoderDrive(DRIVE_SPEED, 25, 25, 0.8);
 
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -109,6 +113,17 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         basepullposition = this.robot.capstone.MAX_POSITION-1.5;
         robot.basepull2.setPosition(basepullposition);
 
+      /*  telemetry.addData("Status", "ElbowDown");
+        robot.elbow.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        encoderDrive(DRIVE_SPEED, 20,20,0.5);
+
+        telemetry.addData("Status", "Pinch");
+        double clawposition = this.robot.rightClaw.MIN_POSITION+1.5;
+        robot.rightClaw.setPosition(clawposition); */
+
+
+
         //sleep so servos have time to initialize
         sleep(3000);
 
@@ -118,7 +133,7 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        encoderDrive(DRIVE_SPEED, 25, 25, 1.5);
+        encoderDrive(DRIVE_SPEED, 25, 25, 1.3);
 
         telemetry.addData("Status", "FoundationArmUp");
         basepullposition = this.robot.capstone.MAX_POSITION-1.5;
@@ -126,11 +141,26 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         basepullposition = this.robot.capstone.MIN_POSITION+1.5;
         robot.basepull2.setPosition(basepullposition);
 
+       /* telemetry.addData("Status", "ElbowUp");
+        robot.elbow.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        encoderDrive(DRIVE_SPEED, 20,20,0.5);
+
+        telemetry.addData("Status", "PinchUp");
+        clawposition = this.robot.rightClaw.MIN_POSITION-1.5;
+        robot.rightClaw.setPosition(clawposition); */
+
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        encoderDrive(DRIVE_SPEED, 25, 25, 0.1);
+
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-        encoderDrive(DRIVE_SPEED, 25, 25, 3.2);
+        encoderDrive(DRIVE_SPEED, 25, 25, 3.0);
 
 
 

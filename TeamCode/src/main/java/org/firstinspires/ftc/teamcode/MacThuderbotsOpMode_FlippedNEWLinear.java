@@ -127,7 +127,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
         double turnLeft = gamepad1.right_stick_x;
         double strafeRight = gamepad1.left_stick_x;
         double strafeLeft = gamepad1.left_stick_x;
-        //double powerMultiplier = 1.0;
+        //double powerMultiplier = 0.5;
 
         boolean driveStop = false;
 
