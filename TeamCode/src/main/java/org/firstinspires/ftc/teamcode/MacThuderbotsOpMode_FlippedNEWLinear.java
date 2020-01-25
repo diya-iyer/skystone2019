@@ -64,7 +64,6 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     double ArmDownUp;
     final double CLAWINCREMENT = 0.5;
     final double BASEINCREMENT = 1.5;
-
     final double CAPSTONEINCREMENT = 0.2;
     //final double CAPSTONE = 0.5;
     final double CAPSTONE_DROP_POS = 1.0;
@@ -78,9 +77,9 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     double MIN_POS = 0.0;     // Minimum rotational position
 
 
-    double powerMultiplier = 1.0;
-    double ParkpowerMultiplier = .5;
-    double MAX_POWER = 1.0;
+    double powerMultiplier = 1.0; // 1.0
+    double ParkpowerMultiplier = .9;
+    double MAX_POWER = 1.0;    // 1.00
     double POWER_INCREMENT = 0.2;
 
     double powerMultiplierArm = -0.8;
@@ -128,7 +127,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
         double turnLeft = gamepad1.right_stick_x;
         double strafeRight = gamepad1.left_stick_x;
         double strafeLeft = gamepad1.left_stick_x;
-        double powerMultiplier = 0.5;
+        //double powerMultiplier = 0.5;
 
         boolean driveStop = false;
 
@@ -283,15 +282,17 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
             basepullposition = this.robot.basepull1.MIN_POSITION+BASEINCREMENT;
             robot.basepull1.setPosition(basepullposition);
+
+            basepullposition = this.robot.capstone. MAX_POSITION-BASEINCREMENT;
             robot.basepull2.setPosition(basepullposition);
 
         } else if (downfoundationarm) {
             telemetry.addData("Status", "FoundationArmDown");
 
-            basepullposition = this.robot.capstone.MAX_POSITION-BASEINCREMENT;
+            basepullposition = this.robot.capstone. MAX_POSITION-BASEINCREMENT;
+             robot.basepull1.setPosition(basepullposition);
 
-
-            robot.basepull1.setPosition(basepullposition);
+            basepullposition = this.robot.basepull1.MIN_POSITION+BASEINCREMENT;
             robot.basepull2.setPosition(basepullposition);
 
 
