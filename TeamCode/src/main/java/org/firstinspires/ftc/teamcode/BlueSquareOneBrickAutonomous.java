@@ -32,9 +32,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="Basic: Mecanum Thunderbots Demo Autonomous", group="Thunderbots")
+@Autonomous(name="Basic: Mecanum Thunderbots BlueSquareOneBrick Autonomous", group="Thunderbots")
 
-public class AUTODEMO extends MacThunderbotsSquareAutonomous {
+public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous {
 
     @Override
     public void runOpMode() {
@@ -152,7 +152,6 @@ public class AUTODEMO extends MacThunderbotsSquareAutonomous {
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
             encoderDrive(DRIVE_SPEED, 64, 64, 0.4);
-
 
 
         }
