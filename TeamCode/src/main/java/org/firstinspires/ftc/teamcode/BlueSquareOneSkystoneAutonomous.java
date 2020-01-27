@@ -32,9 +32,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="Basic: Mecanum Thunderbots BlueSquareOneBrick Autonomous", group="Thunderbots")
+@Autonomous(name="Basic: Mecanum Thunderbots BlueSquareOneSkystone Autonomous", group="Thunderbots")
 
-public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous {
+public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomous {
 
     @Override
     public void runOpMode() {
@@ -49,6 +49,7 @@ public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous
          */
         robot.init(hardwareMap);
         initSkystoneCamera();
+        targetsSkyStone.activate();
         //initSkystoneCamera();
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Init done");    //
@@ -74,6 +75,7 @@ public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous
         waitForStart();
         sleep(300);
         detectSksytoneImage();
+        targetsSkyStone.deactivate();
         deliverbrick();
 
         /* telemetry.addData("sideArm pos", String.valueOf(robot.sideArm.getPosition()));
@@ -107,17 +109,54 @@ public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-            encoderDrive(DRIVE_SPEED, 64, 64, 1.5);
-            //add foundation arm dropping and holding onto foundation code
-            sleep (2000);
+            encoderDrive(DRIVE_SPEED, 64, 64, 1);
 
-            telemetry.addData("Status", "side_arm is here");
-            telemetry.update();
+            sleep (2000);
+            String Image = detectSksytoneImage();
+            int count = 0;
+            while (Image==null || !Image.equals("Stone Target")) {
+
+                telemetry.addData("Status", "Skystone Not Identified..."+Image);    //
+                telemetry.update();
+                sleep(15000);
+                
+
+                robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+                robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+
+                encoderDrive(DRIVE_SPEED, 64, 64, .2);
+
+
+                sleep(2000);
+                int retry=0;
+                while (retry <3) {
+                    Image = detectSksytoneImage();
+                    sleep(2000);
+                    retry++;
+                }
+                count ++;
+                if (count > 20) break;
+
+            }
+            if ((Image!=null)&&Image.equals("Stone Target")) {
+                telemetry.addData("Status", "Skystone Identified..."+Image);    //
+                telemetry.update();
+            }
+            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            encoderDrive(DRIVE_SPEED, 64, 64, 0.6);
+           // telemetry.addData("Status", "side_arm is here");
+          //  telemetry.update();
             double sideArmposition1 = this.robot.sideArm.MAX_POSITION-1.0;
             robot.sideArm.setPosition(sideArmposition1);
             sleep(1000);
-            telemetry.addData("Status", "done");
-            telemetry.update();
+          //  telemetry.addData("Status", "done");
+            //telemetry.update();
             sleep (1000);
 
             double powerMultiplier = 0.5;

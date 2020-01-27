@@ -29,14 +29,13 @@ package org.firstinspires.ftc.teamcode;
  */
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Basic: Mecanum Thunderbots CrossBridge Autonomous", group="Thunderbots")
 
-public class MacThunderbotsSquareAutonomous extends LinearOpMode {
+public class MacThunderbotsSquareAutonomous extends ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode {
 
     /* Declare OpMode members. */
     MacHardwarePushbot robot = new MacHardwarePushbot();   // Use a Pushbot's hardware

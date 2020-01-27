@@ -32,9 +32,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="Basic: Mecanum Thunderbots BlueSquareOneBrick Autonomous", group="Thunderbots")
+@Autonomous(name="Basic: Mecanum Thunderbots RedSquareOneBrick Autonomous", group="Thunderbots")
 
-public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous {
+public class RedSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous {
 
     @Override
     public void runOpMode() {
@@ -48,7 +48,6 @@ public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
-        initSkystoneCamera();
         //initSkystoneCamera();
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Init done");    //
@@ -73,7 +72,6 @@ public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         sleep(300);
-        detectSksytoneImage();
         deliverbrick();
 
         /* telemetry.addData("sideArm pos", String.valueOf(robot.sideArm.getPosition()));
@@ -130,10 +128,10 @@ public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous
             encoderDrive(DRIVE_SPEED, 64, 64, 1.2);
 
 
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
             encoderDrive(DRIVE_SPEED, 64, 64, 1.5);
 
@@ -148,10 +146,10 @@ public class BlueSquareOneBrickAutonomous extends MacThunderbotsSquareAutonomous
             telemetry.update();
             sleep (1000);
 
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
 
             encoderDrive(DRIVE_SPEED, 64, 64, 0.4);
 

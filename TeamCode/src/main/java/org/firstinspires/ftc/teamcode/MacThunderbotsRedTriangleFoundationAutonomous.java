@@ -28,15 +28,14 @@ package org.firstinspires.ftc.teamcode;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.os.AsyncTask;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="Basic: Mecanum Thunderbots Brick Autonomous", group="Thunderbots")
+@Autonomous(name="Basic: Mecanum Thunderbots RedTriangleFoundation Autonomous", group="Thunderbots")
 
-public class BrickAutonomous extends MacThunderbotsSquareAutonomous {
+public class MacThunderbotsRedTriangleFoundationAutonomous extends MacThunderbotsSquareAutonomous {
+
     @Override
     public void runOpMode() {
 
@@ -74,7 +73,7 @@ public class BrickAutonomous extends MacThunderbotsSquareAutonomous {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        deliverbrick();
+        movefoundation();
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         //encoderDrive(DRIVE_SPEED,  -3,   -3, 2.0);  // S1: Forward 3 Inches with 2 Sec timeout
@@ -86,22 +85,84 @@ public class BrickAutonomous extends MacThunderbotsSquareAutonomous {
 
     }
 
+    public void movefoundation() {
 
+        double powerMultiplier = 0.1;
 
-    public void deliverbrick() {
+        //move to foundation
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        encoderDrive(DRIVE_SPEED, 25, 25, 0.8);
+
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        encoderDrive(DRIVE_SPEED, 25, 25, 0.8);
+
         //add foundation arm dropping and holding onto foundation code
-        sleep (5000);
+        telemetry.addData("Status", "FoundationArmDown");
+        double basepullposition = this.robot.capstone.MIN_POSITION+1.5;
+        robot.basepull1.setPosition(basepullposition);
+        basepullposition = this.robot.capstone.MAX_POSITION-1.5;
+        robot.basepull2.setPosition(basepullposition);
 
-        telemetry.addData("Status", "side_arm is here");
-        telemetry.update();
-        double sideArmposition1 = this.robot.sideArm.MAX_POSITION-1.0;
-        robot.sideArm.setPosition(sideArmposition1);
-        sleep(5000);
-        telemetry.addData("Status", "done");
-        telemetry.update();
-        sleep (5000);
+      /*  telemetry.addData("Status", "ElbowDown");
+        robot.elbow.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        encoderDrive(DRIVE_SPEED, 20,20,0.5);
+
+        telemetry.addData("Status", "Pinch");
+        double clawposition = this.robot.rightClaw.MIN_POSITION+1.5;
+        robot.rightClaw.setPosition(clawposition); */
+
+
+
+        //sleep so servos have time to initialize
+        sleep(3000);
+
+        //strafe  back
+
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        encoderDrive(DRIVE_SPEED, 25, 25, 1.3);
+
+        telemetry.addData("Status", "FoundationArmUp");
+        basepullposition = this.robot.capstone.MAX_POSITION-1.5;
+        robot.basepull1.setPosition(basepullposition);
+        basepullposition = this.robot.capstone.MIN_POSITION+1.5;
+        robot.basepull2.setPosition(basepullposition);
+
+       /* telemetry.addData("Status", "ElbowUp");
+        robot.elbow.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        encoderDrive(DRIVE_SPEED, 20,20,0.5);
+
+        telemetry.addData("Status", "PinchUp");
+        clawposition = this.robot.rightClaw.MIN_POSITION-1.5;
+        robot.rightClaw.setPosition(clawposition); */
+
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        encoderDrive(DRIVE_SPEED, 25, 25, 0.1);
+
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        encoderDrive(DRIVE_SPEED, 25, 25, 3.0);
+
+
+
 
     }
 
-
-    }
+}

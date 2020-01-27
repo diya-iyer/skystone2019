@@ -84,7 +84,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 @TeleOp(name="Basic: Thunderbots SKYSTONE Test Webcam", group ="Thunderbots")
 //@Disabled
-public class ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode extends LinearOpMode {
+public class ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode extends LinearOpMode {
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -206,7 +206,7 @@ public class ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode extends LinearOpMo
     }
     public void initSkystoneCamera(){
 
-        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam_1");
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
