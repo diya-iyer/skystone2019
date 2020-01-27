@@ -118,8 +118,8 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
 
                 telemetry.addData("Status", "Skystone Not Identified..."+Image);    //
                 telemetry.update();
-                sleep(15000);
-                
+                sleep(5000);
+
 
                 robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
                 robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -130,14 +130,19 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
 
 
                 sleep(2000);
+                //retry in same spot
                 int retry=0;
-                while (retry <3) {
+                while (Image==null || !Image.equals("Stone Target")) {
                     Image = detectSksytoneImage();
-                    sleep(2000);
                     retry++;
+                    if (retry>1000) break;
                 }
+                telemetry.addData("Status", "  Identified..."+Image);    //
+                telemetry.update();
+                sleep(5000);
                 count ++;
                 if (count > 20) break;
+
 
             }
             if ((Image!=null)&&Image.equals("Stone Target")) {
