@@ -32,7 +32,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="Basic: Mecanum Thunderbots BlueSquareOneSkystone Autonomous", group="Thunderbots")
+@Autonomous(name="A: Mecanum Thunderbots BlueSquareOneSkystone Autonomous", group="Thunderbots")
 
 public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomous {
 
@@ -49,12 +49,12 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
          */
         robot.init(hardwareMap);
         initSkystoneCamera();
-        targetsSkyStone.activate();
+
         //initSkystoneCamera();
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Init done");    //
         telemetry.update();
-
+// commented here by Siva/Sudheer
         robot.leftDrive1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftDrive2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -73,23 +73,84 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        sleep(300);
-        detectSksytoneImage();
-        targetsSkyStone.deactivate();
-        deliverbrick();
 
-        /* telemetry.addData("sideArm pos", String.valueOf(robot.sideArm.getPosition()));
-        telemetry.update();
-        // sleep(5000);
-        robot.sideArm.setPosition(0.5);
-        robot.basepull1.setPosition(0.5);
+        // activate the skystone target
+        targetsSkyStone.activate();
 
+        //sleep(300);
+
+        // set the motor directions
         robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        encoderDrive(DRIVE_SPEED, 64, 64, 1.5); */
+
+        // move forward for 2 seconds
+        encoderDrive(0.1, -2500, -2500, 2.0);
+        double powerMultiplier = 0.05;
+        int count = 0;
+        boolean stonefound = false;
+        // until the skystone is detected
+        // may need to change logic to stop somewhere
+        while (count < 10) {
+
+            // detect the skystone
+            String capstone = detectSksytoneImage();
+            // is it a skystpne?
+            if ("Stone Target".equalsIgnoreCase(capstone)) {
+                telemetry.addData("SKYSTONE VIEW", capstone);
+                telemetry.addData("SKYSTONE STATUS", "FOUND!!!!");
+                telemetry.update();
+                // stop there and need to go out of the loop to pick the stone
+                stonefound = true;
+                break;
+            } else {
+                telemetry.addData("SKYSTONE VIEW", capstone);
+                telemetry.addData("SKYSTONE STATUS", "NOT FOUND!!!!");
+                telemetry.update();
+                count++;
+                // move right
+                robot.leftDrive1.setPower(powerMultiplier);
+                robot.rightDrive1.setPower(-powerMultiplier);
+                robot.leftDrive2.setPower(-powerMultiplier);
+                robot.rightDrive2.setPower(powerMultiplier);
+
+                // wait briefly
+                sleep(500); //500
+
+                // Stop all motion;
+                robot.leftDrive1.setPower(0);
+                robot.rightDrive1.setPower(0);
+                robot.leftDrive2.setPower(0);
+                robot.rightDrive2.setPower(0);
+                sleep(1000); //1000
+
+            }
+            // reset the power
+            // this is the variable to play with to get the right speed for detection of the camera
+            powerMultiplier = 0.1;
+
+        }
+        targetsSkyStone.deactivate();
+        if (stonefound) {
+
+            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            encoderDrive(0.1, -2500, -2500, 0.48);
+
+            robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+
+            encoderDrive(0.1, -2500, -2500, 1.8);
+            deliverbrick();
+
+        }
     }
 
       /*  telemetry.addData("Status", "Side_Arm");
@@ -104,74 +165,21 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             robot.sideArm.setPosition(0.5);
             robot.basepull1.setPosition(0.5);
 
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-            encoderDrive(DRIVE_SPEED, 64, 64, 1);
-
-            sleep (2000);
-            String Image = detectSksytoneImage();
-            int count = 0;
-            while (Image==null || !Image.equals("Stone Target")) {
-
-                telemetry.addData("Status", "Skystone Not Identified..."+Image);    //
-                telemetry.update();
-                sleep(5000);
-
-
-                robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-                robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-
-                encoderDrive(DRIVE_SPEED, 64, 64, .2);
-
-
-                sleep(2000);
-                //retry in same spot
-                int retry=0;
-                while (Image==null || !Image.equals("Stone Target")) {
-                    Image = detectSksytoneImage();
-                    retry++;
-                    if (retry>1000) break;
-                }
-                telemetry.addData("Status", "  Identified..."+Image);    //
-                telemetry.update();
-                sleep(5000);
-                count ++;
-                if (count > 20) break;
-
-
-            }
-            if ((Image!=null)&&Image.equals("Stone Target")) {
-                telemetry.addData("Status", "Skystone Identified..."+Image);    //
-                telemetry.update();
-            }
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-            encoderDrive(DRIVE_SPEED, 64, 64, 0.6);
-           // telemetry.addData("Status", "side_arm is here");
-          //  telemetry.update();
+                sleep(1000);
+               // arm down
             double sideArmposition1 = this.robot.sideArm.MAX_POSITION-1.0;
             robot.sideArm.setPosition(sideArmposition1);
             sleep(1000);
-          //  telemetry.addData("Status", "done");
-            //telemetry.update();
-            sleep (1000);
+
 
             double powerMultiplier = 0.5;
-
+            //
             robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            encoderDrive(DRIVE_SPEED, 64, 64, 1.2);
+            encoderDrive(DRIVE_SPEED, 64, 64, 1.1);
 
 
             robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);

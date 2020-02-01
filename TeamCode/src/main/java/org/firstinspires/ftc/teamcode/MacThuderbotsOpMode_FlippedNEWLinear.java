@@ -65,12 +65,14 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     final double CLAWINCREMENT = 0.5;
     final double BASEINCREMENT = 1.5;
     final double CAPSTONEINCREMENT = 0.2;
+    final double WRISTINCREMENT = 1.5;
     //final double CAPSTONE = 0.5;
     final double CAPSTONE_DROP_POS = 1.0;
     final double CAPSTONE_START_POS = 0.5;
 
     final double BASEPULL = 0.7;
     double basepullposition = 0;
+    double wristposition = 0;
     double foundationposition = 0;
     double capstoneposition = 0;
     double MAX_POS = 3.0;     // Maximum rotational position
@@ -222,6 +224,8 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
         boolean upfoundationarm = gamepad2.y;
         boolean downfoundationarm = gamepad2.a;
         double elbowUpDown = gamepad2.right_stick_y;
+        boolean wristdown = gamepad2.b;
+        boolean wristup = gamepad2.x;
 
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
@@ -296,8 +300,21 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
             robot.basepull2.setPosition(basepullposition);
 
 
-        }
+        } if (wristup) {
+            telemetry.addData("Status", "WristMovingUp");
 
+            wristposition = this.robot.Wrist.MIN_POSITION+WRISTINCREMENT;
+            robot.Wrist.setPosition(wristposition);
+
+        }
+          if (wristdown) {
+              telemetry.addData("Status", "WristMovingDown");
+
+              wristposition = this.robot.Wrist. MAX_POSITION-WRISTINCREMENT;
+              robot.Wrist.setPosition(wristposition);
+
+
+          }
         telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.CenterLeftArm.getPower(), robot.rightClaw.getPosition());
         telemetry.addData("Elbow", "left (%.2f)", robot.elbow.getPower());
         telemetry.addData("Base Pull 1 & 2 ", "left (%.2f) left (%.2f)", robot.basepull1.getPosition(),robot.basepull2.getPosition());
@@ -327,8 +344,9 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     public void tapemeasurepark() {
 
         //boolean releasecapstone = gamepad2.start;
-        boolean extendtape = gamepad2.x;
-        boolean reducetape = gamepad2.b;
+        boolean extendtape = gamepad1.x;
+        boolean reducetape = gamepad1.b;
+        //switched controls to body driver so buttons freed up for arm
         if (!extendtape && !reducetape)
             robot.tapemeasurer.setPower(0);
         if (extendtape) {

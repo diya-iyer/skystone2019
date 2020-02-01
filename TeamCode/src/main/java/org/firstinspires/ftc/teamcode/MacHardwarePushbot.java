@@ -65,7 +65,9 @@ public class MacHardwarePushbot
     public DcMotor  CenterLeftArm     = null;
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
-    public Servo    capstone = null;
+    public Servo    capstone    = null;
+    public Servo    Wrist       = null;
+
     //public Servo    foundationarm = null;
     public DcMotor  tapemeasurer = null;
 
@@ -108,6 +110,7 @@ public class MacHardwarePushbot
         //  foundationarm = hwMap.get(Servo.class, "foundation_arm");
         tapemeasurer = hwMap.get(DcMotor.class, "tape_measurer");
         capstone = hwMap.get(Servo.class, "capstone");
+        Wrist = hwMap.get(Servo.class, "Wrist");
 
         leftDrive1.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive1.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
@@ -144,6 +147,7 @@ public class MacHardwarePushbot
 
         basepull1.setDirection(Servo.Direction.FORWARD);
         basepull2.setDirection(Servo.Direction.FORWARD);
+        Wrist.setDirection(Servo.Direction.FORWARD);
         sideArm.setDirection(Servo.Direction.FORWARD);  //SHASHANK USE FOR DEMO
 
     }

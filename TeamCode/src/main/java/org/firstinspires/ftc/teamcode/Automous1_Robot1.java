@@ -33,7 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousPark_Robot1", group="Thunderbots")
+//@Autonomous(name="AutonomousPark_Robot1", group="Thunderbots")
 
 public class Automous1_Robot1 extends ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode {
     /* Declare OpMode members. */
