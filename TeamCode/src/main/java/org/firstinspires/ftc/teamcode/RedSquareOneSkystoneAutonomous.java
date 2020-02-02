@@ -94,10 +94,10 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
         //sleep(300);
 
         // set the motor directions
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         // move forward for 2 seconds
@@ -125,10 +125,10 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
                 telemetry.update();
                 count++;
                 // move right
-                robot.leftDrive1.setPower(-powerMultiplier);
-                robot.rightDrive1.setPower(powerMultiplier);
-                robot.leftDrive2.setPower(powerMultiplier);
-                robot.rightDrive2.setPower(-powerMultiplier);
+                robot.leftDrive1.setPower(powerMultiplier);
+                robot.rightDrive1.setPower(-powerMultiplier);
+                robot.leftDrive2.setPower(-powerMultiplier);
+                robot.rightDrive2.setPower(powerMultiplier);
 
                 // wait briefly
                 sleep(500); //500
@@ -156,10 +156,10 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
 
             encoderDrive(0.1, -2500, -2500, 0.48);
 
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+            robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
             encoderDrive(0.1, -2500, -2500, 1.8);
             deliverbrick();
@@ -187,10 +187,10 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
 
         double powerMultiplier = 0.5;
         //
-        robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
-        robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
         encoderDrive(DRIVE_SPEED, 64, 64, 1.1);
 
