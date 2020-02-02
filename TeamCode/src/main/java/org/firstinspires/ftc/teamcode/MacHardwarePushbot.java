@@ -31,8 +31,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorColor;
 
 /**
  * This is NOT an opmode.
@@ -67,6 +70,8 @@ public class MacHardwarePushbot
     public Servo    rightClaw   = null;
     public Servo    capstone    = null;
     public Servo    Wrist       = null;
+    public NormalizedColorSensor colorFront = null;
+    public NormalizedColorSensor colorBack = null;
 
     //public Servo    foundationarm = null;
     public DcMotor  tapemeasurer = null;
@@ -111,6 +116,9 @@ public class MacHardwarePushbot
         tapemeasurer = hwMap.get(DcMotor.class, "tape_measurer");
         capstone = hwMap.get(Servo.class, "capstone");
         Wrist = hwMap.get(Servo.class, "Wrist");
+        colorFront = hwMap.get(NormalizedColorSensor.class, "Color_Front");
+        colorBack = hwMap.get(NormalizedColorSensor.class, "Color_Back");
+
 
         leftDrive1.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive1.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors

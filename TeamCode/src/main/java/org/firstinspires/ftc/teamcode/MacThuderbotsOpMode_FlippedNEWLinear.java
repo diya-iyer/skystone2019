@@ -116,6 +116,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
             powerChange();
             tapemeasurepark();
             capstonedrop();
+            sidearmpickupbrick();
             telemetry.update();
         }
 

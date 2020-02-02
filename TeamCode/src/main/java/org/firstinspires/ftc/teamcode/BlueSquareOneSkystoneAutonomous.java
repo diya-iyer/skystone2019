@@ -28,14 +28,21 @@ package org.firstinspires.ftc.teamcode;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 @Autonomous(name="A: Mecanum Thunderbots BlueSquareOneSkystone Autonomous", group="Thunderbots")
 
 public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomous {
 
+    private NormalizedColorSensor colorSensor = null;
+    private NormalizedRGBA colors = null;
     @Override
     public void runOpMode() {
 
@@ -49,12 +56,18 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
          */
         robot.init(hardwareMap);
         initSkystoneCamera();
+        colorSensor = hardwareMap.get(NormalizedColorSensor.class, "Color_Front");
 
-        //initSkystoneCamera();
-        // Send telemetry message to signify robot waiting;
+        // If possible, turn the light on in the beginning (it might already be on anyway,
+        // we just make sure it is if we can).
+        if (colorSensor instanceof SwitchableLight) {
+            ((SwitchableLight) colorSensor).enableLight(true);
+        }
+
+       // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Init done");    //
         telemetry.update();
-// commented here by Siva/Sudheer
+
         robot.leftDrive1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftDrive2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -181,12 +194,40 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             encoderDrive(DRIVE_SPEED, 64, 64, 1.1);
 
 
+ /*           robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+            robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+            encoderDrive(DRIVE_SPEED, 64, 64, 1.5);*/
+
             robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-            encoderDrive(DRIVE_SPEED, 64, 64, 1.5);
+            // loop until detect blue
+            while (true) {
+
+                 robot.leftDrive1.setPower(powerMultiplier);
+                robot.rightDrive1.setPower(powerMultiplier);
+                robot.leftDrive2.setPower(powerMultiplier);
+                robot.rightDrive2.setPower(powerMultiplier);
+
+                colors = colorSensor.getNormalizedColors();
+                if (colors.blue > colors.red && colors.blue > colors.green) {
+                    robot.leftDrive1.setPower(0);
+                    robot.rightDrive1.setPower(0);
+                    robot.leftDrive2.setPower(0);
+                    robot.rightDrive2.setPower(0);
+
+                    sleep (1000);
+                    break;
+                }
+            }
+
+            // move a little forward
+            encoderDrive(DRIVE_SPEED, 64, 64, 0.1);
 
             sleep (2000);
 
@@ -204,7 +245,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            encoderDrive(DRIVE_SPEED, 64, 64, 0.4);
+            encoderDrive(DRIVE_SPEED, 64, 64, 0.25);
 
 
         }
