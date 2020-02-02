@@ -84,7 +84,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 @TeleOp(name="Basic: Thunderbots SKYSTONE Test Webcam", group ="Thunderbots")
 //@Disabled
-public class ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode extends LinearOpMode {
+public class ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode extends LinearOpMode {
 
     // IMPORTANT: If you are using a USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -206,7 +206,7 @@ public class ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode extends LinearOpMo
     }
     public void initSkystoneCamera(){
 
-        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam_1");
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -366,9 +366,9 @@ public class ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode extends LinearOpMo
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT  = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
-        final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
+        final float CAMERA_FORWARD_DISPLACEMENT  = 8.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot-center
+        final float CAMERA_VERTICAL_DISPLACEMENT = 2.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
+        final float CAMERA_LEFT_DISPLACEMENT     = 1;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)

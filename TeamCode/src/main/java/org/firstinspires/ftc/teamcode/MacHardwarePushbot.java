@@ -31,8 +31,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorColor;
 
 /**
  * This is NOT an opmode.
@@ -65,12 +68,18 @@ public class MacHardwarePushbot
     public DcMotor  CenterLeftArm     = null;
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
-    public Servo    capstone = null;
+    public Servo    capstone    = null;
+    public Servo    Wrist       = null;
+    public NormalizedColorSensor colorFront = null;
+    public NormalizedColorSensor colorBack = null;
+
     //public Servo    foundationarm = null;
     public DcMotor  tapemeasurer = null;
 
     public Servo basepull1 = null;
     public Servo basepull2 = null;
+
+    public Servo sideArm = null;   //SHASHANK USE FOR DEMO
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.25 ;
@@ -102,9 +111,14 @@ public class MacHardwarePushbot
         elbow     = hwMap.get(DcMotor.class,"elbow");
         basepull1 = hwMap.get(Servo.class, "base_pull1");
         basepull2 = hwMap.get(Servo.class, "base_pull2");
+        sideArm = hwMap.get(Servo.class, "side_arm");
         //  foundationarm = hwMap.get(Servo.class, "foundation_arm");
         tapemeasurer = hwMap.get(DcMotor.class, "tape_measurer");
         capstone = hwMap.get(Servo.class, "capstone");
+        Wrist = hwMap.get(Servo.class, "Wrist");
+        colorFront = hwMap.get(NormalizedColorSensor.class, "Color_Front");
+        colorBack = hwMap.get(NormalizedColorSensor.class, "Color_Back");
+
 
         leftDrive1.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive1.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
@@ -141,6 +155,8 @@ public class MacHardwarePushbot
 
         basepull1.setDirection(Servo.Direction.FORWARD);
         basepull2.setDirection(Servo.Direction.FORWARD);
+        Wrist.setDirection(Servo.Direction.FORWARD);
+        sideArm.setDirection(Servo.Direction.FORWARD);  //SHASHANK USE FOR DEMO
 
     }
  }

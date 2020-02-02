@@ -34,9 +34,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Basic: Mecanum Thunderbots Blue Pull Foundation", group="Thunderbots")
+@Autonomous(name="Basic: Mecanum Thunderbots BluePullBAD Foundation", group="Thunderbots")
 
-public class MacThunderbotsTriangleBlueFoundationPull extends LinearOpMode {
+public class MacThunderbotsTriangleBlueFoundationPullBAD extends LinearOpMode {
 
     /* Declare OpMode members. */
     MacHardwarePushbot robot = new MacHardwarePushbot();   // Use a Pushbot's hardware

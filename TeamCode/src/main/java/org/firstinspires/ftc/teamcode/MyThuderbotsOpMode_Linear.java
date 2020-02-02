@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Thunderbots OpMode", group="Thunderbots")
 
-public class MyThuderbotsOpMode_Linear extends ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode {
+public class MyThuderbotsOpMode_Linear extends ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode {
 
     // Declare OpMode members.
     // Added the two DcMotors for the arm

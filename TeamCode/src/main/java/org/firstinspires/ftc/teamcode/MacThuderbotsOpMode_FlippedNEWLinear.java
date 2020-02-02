@@ -64,13 +64,17 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     double ArmDownUp;
     final double CLAWINCREMENT = 0.5;
     final double BASEINCREMENT = 1.5;
+    final double SIDEARMINCREMENT = 1;
     final double CAPSTONEINCREMENT = 0.2;
+    final double WRISTINCREMENT = 1.5;
     //final double CAPSTONE = 0.5;
     final double CAPSTONE_DROP_POS = 1.0;
     final double CAPSTONE_START_POS = 0.5;
 
     final double BASEPULL = 0.7;
     double basepullposition = 0;
+    double sidearmposition = 0.5;
+    double wristposition = 0;
     double foundationposition = 0;
     double capstoneposition = 0;
     double MAX_POS = 3.0;     // Maximum rotational position
@@ -112,6 +116,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
             powerChange();
             tapemeasurepark();
             capstonedrop();
+            sidearmpickupbrick();
             telemetry.update();
         }
 
@@ -296,8 +301,8 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
             robot.basepull2.setPosition(basepullposition);
 
 
-        }
 
+          }
         telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.CenterLeftArm.getPower(), robot.rightClaw.getPosition());
         telemetry.addData("Elbow", "left (%.2f)", robot.elbow.getPower());
         telemetry.addData("Base Pull 1 & 2 ", "left (%.2f) left (%.2f)", robot.basepull1.getPosition(),robot.basepull2.getPosition());
@@ -327,8 +332,9 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     public void tapemeasurepark() {
 
         //boolean releasecapstone = gamepad2.start;
-        boolean extendtape = gamepad2.x;
-        boolean reducetape = gamepad2.b;
+        boolean extendtape = gamepad1.x;
+        boolean reducetape = gamepad1.b;
+        //switched controls to body driver so buttons freed up for arm
         if (!extendtape && !reducetape)
             robot.tapemeasurer.setPower(0);
         if (extendtape) {
@@ -355,6 +361,26 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
         robot.capstone.setPosition(capstoneposition);
         telemetry.addData("Capstone - New position", "left (%.2f)", robot.capstone.getPosition());
+
+
+    }
+
+    public void sidearmpickupbrick() {
+
+        boolean dropsidearm = gamepad2.x;
+        boolean liftsidearm = gamepad2.b;
+
+        if (liftsidearm) {
+            telemetry.addData("Status", "SideArmUp");
+
+            sidearmposition = this.robot.sideArm.MAX_POSITION;
+            robot.sideArm.setPosition(sidearmposition);
+        } else if (dropsidearm) {
+            telemetry.addData("Status", "SideArmDown");
+
+            sidearmposition = this.robot.sideArm.MAX_POSITION - SIDEARMINCREMENT;
+            robot.sideArm.setPosition(sidearmposition);
+        }
 
 
     }

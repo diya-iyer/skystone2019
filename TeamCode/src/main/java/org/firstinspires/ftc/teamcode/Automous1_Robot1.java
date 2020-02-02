@@ -30,14 +30,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousPark_Robot1", group="Thunderbots")
+//@Autonomous(name="AutonomousPark_Robot1", group="Thunderbots")
 
-public class Automous1_Robot1 extends ThunsderbotVuforiaSkyStoneNavigationWebcamOpMode{
+public class Automous1_Robot1 extends ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode {
     /* Declare OpMode members. */
     HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
