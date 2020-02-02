@@ -163,7 +163,6 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             telemetry.update();
             // sleep(5000);
             robot.sideArm.setPosition(0.5);
-            robot.basepull1.setPosition(0.5);
 
                 sleep(1000);
                // arm down

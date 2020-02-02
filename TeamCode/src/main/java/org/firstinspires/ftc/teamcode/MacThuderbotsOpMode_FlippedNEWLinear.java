@@ -64,6 +64,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
     double ArmDownUp;
     final double CLAWINCREMENT = 0.5;
     final double BASEINCREMENT = 1.5;
+    final double SIDEARMINCREMENT = 1;
     final double CAPSTONEINCREMENT = 0.2;
     final double WRISTINCREMENT = 1.5;
     //final double CAPSTONE = 0.5;
@@ -72,6 +73,7 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
     final double BASEPULL = 0.7;
     double basepullposition = 0;
+    double sidearmposition = 0.5;
     double wristposition = 0;
     double foundationposition = 0;
     double capstoneposition = 0;
@@ -224,8 +226,6 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
         boolean upfoundationarm = gamepad2.y;
         boolean downfoundationarm = gamepad2.a;
         double elbowUpDown = gamepad2.right_stick_y;
-        boolean wristdown = gamepad2.b;
-        boolean wristup = gamepad2.x;
 
         MAX_POS = this.robot.rightClaw.MAX_POSITION;
         MIN_POS = this.robot.rightClaw.MIN_POSITION;
@@ -300,19 +300,6 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
             robot.basepull2.setPosition(basepullposition);
 
 
-        } if (wristup) {
-            telemetry.addData("Status", "WristMovingUp");
-
-            wristposition = this.robot.Wrist.MIN_POSITION+WRISTINCREMENT;
-            robot.Wrist.setPosition(wristposition);
-
-        }
-          if (wristdown) {
-              telemetry.addData("Status", "WristMovingDown");
-
-              wristposition = this.robot.Wrist. MAX_POSITION-WRISTINCREMENT;
-              robot.Wrist.setPosition(wristposition);
-
 
           }
         telemetry.addData("Arms & Claw", "left (%.2f), right (%.2f)", robot.CenterRightArm.getPower(), robot.CenterLeftArm.getPower(), robot.rightClaw.getPosition());
@@ -373,6 +360,26 @@ public class MacThuderbotsOpMode_FlippedNEWLinear extends LinearOpMode {
 
         robot.capstone.setPosition(capstoneposition);
         telemetry.addData("Capstone - New position", "left (%.2f)", robot.capstone.getPosition());
+
+
+    }
+
+    public void sidearmpickupbrick() {
+
+        boolean dropsidearm = gamepad2.x;
+        boolean liftsidearm = gamepad2.b;
+
+        if (liftsidearm) {
+            telemetry.addData("Status", "SideArmUp");
+
+            sidearmposition = this.robot.sideArm.MAX_POSITION;
+            robot.sideArm.setPosition(sidearmposition);
+        } else if (dropsidearm) {
+            telemetry.addData("Status", "SideArmDown");
+
+            sidearmposition = this.robot.sideArm.MAX_POSITION - SIDEARMINCREMENT;
+            robot.sideArm.setPosition(sidearmposition);
+        }
 
 
     }
