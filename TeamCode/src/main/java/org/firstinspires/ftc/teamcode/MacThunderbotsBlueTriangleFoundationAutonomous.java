@@ -160,7 +160,7 @@ public class MacThunderbotsBlueTriangleFoundationAutonomous extends MacThunderbo
         robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-        encoderDrive(DRIVE_SPEED, 25, 25, 3.0);
+        encoderDrive(DRIVE_SPEED, 25, 25, 2.5);
 
 
 

@@ -72,10 +72,13 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
         robot.rightDrive1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftDrive2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.tapemeasurer.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftDrive1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.leftDrive2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.tapemeasurer.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
 
         // Send telemetry message to indicate successful Encoder reset
@@ -142,18 +145,18 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             }
             // reset the power
             // this is the variable to play with to get the right speed for detection of the camera
-            powerMultiplier = 0.1;
+            powerMultiplier = 0.08;
 
         }
         targetsSkyStone.deactivate();
         if (stonefound) {
 
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+           /* robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-            encoderDrive(0.1, -2500, -2500, 0.48);
+            encoderDrive(0.1, -2500, -2500, 0.35); */
 
             robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -191,7 +194,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            encoderDrive(DRIVE_SPEED, 64, 64, 1.1);
+            encoderDrive(DRIVE_SPEED, 64, 64, 1.8);
 
 
  /*           robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -245,9 +248,11 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            encoderDrive(DRIVE_SPEED, 64, 64, 0.25);
+            encoderDrive(DRIVE_SPEED, 64, 64, 0.5);
 
+            robot.tapemeasurer.setDirection(DcMotorSimple.Direction.FORWARD);
 
+            encoderDrive(DRIVE_SPEED, 50,50,2);
         }
 
 
