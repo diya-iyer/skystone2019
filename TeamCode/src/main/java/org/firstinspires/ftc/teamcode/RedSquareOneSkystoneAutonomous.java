@@ -250,7 +250,7 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
 
         robot.tapemeasurer.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 300; i++)
         robot.tapemeasurer.setPower(-1.0);
 
     }

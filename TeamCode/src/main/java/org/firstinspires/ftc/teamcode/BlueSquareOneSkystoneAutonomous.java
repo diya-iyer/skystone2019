@@ -194,7 +194,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            encoderDrive(DRIVE_SPEED, 64, 64, 1.3);
+            encoderDrive(DRIVE_SPEED, 64, 64, 1.5);
 
 
  /*           robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -252,7 +252,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
 
             robot.tapemeasurer.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 300; i++) {
                 robot.tapemeasurer.setPower(-1.0);
             }
         }
