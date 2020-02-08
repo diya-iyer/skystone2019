@@ -149,7 +149,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
 
         }
         targetsSkyStone.deactivate();
-        if (stonefound) {
+        //if (stonefound) {
 
            /* robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -166,7 +166,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             encoderDrive(0.1, -2500, -2500, 1.8);
             deliverbrick();
 
-        }
+       // }
     }
 
       /*  telemetry.addData("Status", "Side_Arm");
@@ -180,9 +180,9 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             // sleep(5000);
             robot.sideArm.setPosition(0.5);
 
-                sleep(1000);
-               // arm down
-            double sideArmposition1 = this.robot.sideArm.MAX_POSITION-1.0;
+            sleep(1000);
+            // arm down
+            double sideArmposition1 = this.robot.sideArm.MAX_POSITION - 1.0;
             robot.sideArm.setPosition(sideArmposition1);
             sleep(1000);
 
@@ -212,7 +212,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             // loop until detect blue
             while (true) {
 
-                 robot.leftDrive1.setPower(powerMultiplier);
+                robot.leftDrive1.setPower(powerMultiplier);
                 robot.rightDrive1.setPower(powerMultiplier);
                 robot.leftDrive2.setPower(powerMultiplier);
                 robot.rightDrive2.setPower(powerMultiplier);
@@ -224,7 +224,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
                     robot.leftDrive2.setPower(0);
                     robot.rightDrive2.setPower(0);
 
-                    sleep (1000);
+                    sleep(1000);
                     break;
                 }
             }
@@ -232,7 +232,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             // move a little forward
             encoderDrive(DRIVE_SPEED, 64, 64, 0.1);
 
-            sleep (2000);
+            sleep(2000);
 
             telemetry.addData("Status", "side_arm is here");
             telemetry.update();
@@ -241,7 +241,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             sleep(1000);
             telemetry.addData("Status", "done");
             telemetry.update();
-            sleep (1000);
+            sleep(1000);
 
             robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.rightDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -252,7 +252,9 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
 
             robot.tapemeasurer.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            encoderDrive(DRIVE_SPEED, 50,50,2);
+            for (int i = 0; i < 8; i++) {
+                robot.tapemeasurer.setPower(1.0);
+            }
         }
 
 

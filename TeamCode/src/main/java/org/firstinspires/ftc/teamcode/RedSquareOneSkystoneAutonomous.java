@@ -125,10 +125,10 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
                 telemetry.update();
                 count++;
                 // move right
-                robot.leftDrive1.setPower(powerMultiplier);
-                robot.rightDrive1.setPower(-powerMultiplier);
-                robot.leftDrive2.setPower(-powerMultiplier);
-                robot.rightDrive2.setPower(powerMultiplier);
+                robot.leftDrive1.setPower(-powerMultiplier);
+                robot.rightDrive1.setPower(powerMultiplier);
+                robot.leftDrive2.setPower(powerMultiplier);
+                robot.rightDrive2.setPower(-powerMultiplier);
 
                 // wait briefly
                 sleep(500); //500
@@ -216,7 +216,7 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
             robot.rightDrive2.setPower(powerMultiplier);
 
             colors = colorSensor.getNormalizedColors();
-            if (colors.red < colors.green && colors.red < colors.blue) {
+            if (colors.red > colors.green && colors.red > colors.blue) {
                 robot.leftDrive1.setPower(0);
                 robot.rightDrive1.setPower(0);
                 robot.leftDrive2.setPower(0);
@@ -246,8 +246,12 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
         robot.leftDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
         robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        encoderDrive(DRIVE_SPEED, 64, 64, 0.25);
+        encoderDrive(DRIVE_SPEED, 64, 64, 0.5);
 
+        robot.tapemeasurer.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        for (int i = 0; i < 8; i++)
+        robot.tapemeasurer.setPower(1.0);
 
     }
 }
