@@ -109,7 +109,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
         boolean stonefound = false;
         // until the skystone is detected
         // may need to change logic to stop somewhere
-        while (count < 10) {
+        while (count < 9) {
 
             // detect the skystone
             String capstone = detectSksytoneImage();
@@ -194,7 +194,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
             robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            encoderDrive(DRIVE_SPEED, 64, 64, 1.8);
+            encoderDrive(DRIVE_SPEED, 64, 64, 1.3);
 
 
  /*           robot.leftDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -252,8 +252,8 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
 
             robot.tapemeasurer.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            for (int i = 0; i < 8; i++) {
-                robot.tapemeasurer.setPower(1.0);
+            for (int i = 0; i < 100; i++) {
+                robot.tapemeasurer.setPower(-1.0);
             }
         }
 
