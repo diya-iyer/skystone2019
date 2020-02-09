@@ -61,7 +61,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @Disabled
  */
 
-@Autonomous(name="Basic: Thunderbots AutoMode", group="Thunderbots")
+//@Autonomous(name="Basic: Thunderbots AutoMode", group="Thunderbots")
 
 public class MyThunderbotsPushbotAutoDriveByEncoder_Linear extends ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode {
 

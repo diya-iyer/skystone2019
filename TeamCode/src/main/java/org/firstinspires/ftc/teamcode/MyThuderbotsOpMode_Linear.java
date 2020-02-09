@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  * name="Basic: Linear OpMode"  changed to name="Basic: Thunderbots OpMode"
  */
 
-@TeleOp(name="Basic: Thunderbots OpMode", group="Thunderbots")
+//@TeleOp(name="Basic: Thunderbots OpMode", group="Thunderbots")
 
 public class MyThuderbotsOpMode_Linear extends ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode {
 

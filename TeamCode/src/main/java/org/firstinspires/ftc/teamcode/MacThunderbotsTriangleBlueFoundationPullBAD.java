@@ -34,7 +34,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Basic: Mecanum Thunderbots BluePullBAD Foundation", group="Thunderbots")
+//@Autonomous(name="Basic: Mecanum Thunderbots BluePullBAD Foundation", group="Thunderbots")
 
 public class MacThunderbotsTriangleBlueFoundationPullBAD extends LinearOpMode {
 

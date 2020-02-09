@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="A: Mecanum Thunderbots BlueSquareOneSkystone Autonomous", group="Thunderbots")
 
@@ -109,7 +110,7 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
         boolean stonefound = false;
         // until the skystone is detected
         // may need to change logic to stop somewhere
-        while (count < 9) {
+        while (count < 7) {
 
             // detect the skystone
             String capstone = detectSksytoneImage();
@@ -251,8 +252,9 @@ public class BlueSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonom
             encoderDrive(DRIVE_SPEED, 64, 64, 0.5);
 
             robot.tapemeasurer.setDirection(DcMotorSimple.Direction.FORWARD);
-
-            for (int i = 0; i < 300; i++) {
+            ElapsedTime runtime = new ElapsedTime();
+            runtime.reset();
+            while (runtime.seconds() < 2){
                 robot.tapemeasurer.setPower(-1.0);
             }
         }

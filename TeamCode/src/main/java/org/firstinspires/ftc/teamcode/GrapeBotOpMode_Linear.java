@@ -22,7 +22,7 @@ import com.qualcomm.robotcore.util.Range;
  * name="Basic: Linear OpMode"  changed to name="Basic: Thunderbots OpMode"
  */
 
-@TeleOp(name="Basic: GrapeBot Thunderbots Linear Op", group="Thunderbots")
+//@TeleOp(name="Basic: GrapeBot Thunderbots Linear Op", group="Thunderbots")
 public class GrapeBotOpMode_Linear extends LinearOpMode{
 
 

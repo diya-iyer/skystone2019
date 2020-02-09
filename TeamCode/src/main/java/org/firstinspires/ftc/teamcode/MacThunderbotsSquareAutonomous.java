@@ -33,7 +33,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Basic: Mecanum Thunderbots CrossBridge Autonomous", group="Thunderbots")
+//@Autonomous(name="Basic: Mecanum Thunderbots CrossBridge Autonomous", group="Thunderbots")
 
 public class MacThunderbotsSquareAutonomous extends ThunderbotsVuforiaSkyStoneNavigationWebcamOpMode {
 

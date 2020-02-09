@@ -49,7 +49,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * name="Basic: Linear OpMode"  changed to name="Basic: Thunderbots OpMode"
  */
 
-@TeleOp(name="Basic: Mecanum Thunderbots TeleOp1", group="Thunderbots")
+//@TeleOp(name="Basic: Mecanum Thunderbots TeleOp1", group="Thunderbots")
 
 public class MacThuderbotsOpMode_Linear extends LinearOpMode {
 

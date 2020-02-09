@@ -38,9 +38,9 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="A: Mecanum Thunderbots RedSquareOneSkystone Autonomous", group="Thunderbots")
+//@Autonomous(name="A: Mecanum Thunderbots RedSquareOneSkystone Autonomous", group="Thunderbots")
 
-public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomous {
+public class RedSquareOneSkystoneAutonomousPark extends MacThunderbotsSquareAutonomous {
 
     private NormalizedColorSensor colorSensor = null;
     private NormalizedRGBA colors = null;
@@ -150,15 +150,15 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
         targetsSkyStone.deactivate();
 
 
-            robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
+        robot.rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.leftDrive2.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.rightDrive2.setDirection(DcMotorSimple.Direction.FORWARD);
 
-            encoderDrive(0.1, -2500, -2500, 1.8);
-            deliverbrick();
+        encoderDrive(0.1, -2500, -2500, 1.8);
+        deliverbrick();
 
-        }
+    }
 
     /*  telemetry.addData("Status", "Side_Arm");
       double sideArmposition = this.robot.sideArm.MAX_POSITION -.5;
@@ -241,16 +241,11 @@ public class RedSquareOneSkystoneAutonomous extends MacThunderbotsSquareAutonomo
 
         encoderDrive(DRIVE_SPEED, 64, 64, 0.5); */
 
-        robot.tapemeasurer.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        ElapsedTime runtime = new ElapsedTime();
-        runtime.reset();
-        while (runtime.seconds() < 2) {
-            robot.tapemeasurer.setPower(-1.0);
         }
 
     }
-}
+
+
 
 
 
